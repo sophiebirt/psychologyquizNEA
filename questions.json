@@ -1,0 +1,54 @@
+{
+  "questionsList": [
+    {
+      "questionNo": 1,
+      "question": "Name one explanation of resistance to social influence [1 mark]",
+      "topic": "Social influence",
+      "AO1": "1",
+      "AO2": "0",
+      "AO3": "0",
+      "TM": "1",
+      "answerTemplate":"One explanation for the resistance to social influence is ________. When individuals have an ______ locus of control they are less likely to blindly obey authority figures as they are less likely to make the shift to _____ state because they believe they are responsible for their actions",
+      "answerEntries": 3,
+      "answer1": "locus of control",
+      "answer2": "internal",
+      "answer3":  "agentic"
+    },
+    {
+      "questionNo": 2,
+      "question": "Briefly outline one way in which researchers have investigated the capacity of short term memory [2 marks]",
+      "topic": "Memory",
+      "AO1": "2",
+      "AO2": "0",
+      "AO3": "0",
+      "TM": "2",
+      "answerTemplate":"The ____ span technique is where participants are read a series of numbers and asked to repeat the same sequence back immediately. An additional digit is added onto each subsequent trial to measure ____ term memory capacity.",
+      "answerEntries": 2,
+      "answer1": "digit",
+      "answer2": "short"
+    },
+    {
+      "questionNo": 3,
+      "question": "Describe how Zimbardo investigated conformity to social roles. [4 marks]",
+      "topic": "Social influence",
+      "AO1": "4",
+      "AO2": "0",
+      "AO3": "0",
+      "TM": "4",
+      "answerTemplate":"Zimbardo set up a mock prison in the basement of Stanford uni. It was a controlled ____ (participant/non-participant), ___ (overt/covert) study. Prisoners were subject to a mock arrest and guards given appropriate uniform and sunglasses to hide their identities. The study was ran for ___ weeks, but was stopped early.",
+      "answerEntries": 3,
+      "answer1": "participant",
+      "answer2": "overt",
+      "answer3": "two"
+    },
+    {
+      "questionNo": 1,
+      "question": "Discuss statistical infrequency and deviation from social norms as definitions of abnormality [16 marks]",
+      "topic": "Psychopathology",
+      "AO1": "6",
+      "AO2": "0",
+      "AO3": "10",
+      "TM": "16"
+    }
+  ]
+}
