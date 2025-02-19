@@ -9,6 +9,8 @@ import json
 
 # ---- GUI OOP ----
 
+# add encapsulation - for oop reasons
+
 class App(Tk): # Parent GUI class
     def __init__(self):
         super().__init__()
@@ -170,14 +172,16 @@ class quizFrame(Frame): # Frame used for the quiz element of the program
     def __init__(self, parent):
         super().__init__(parent)
 
+        
+
         self.pack(pady=50) # Packing the quiz frame itself onto screen 
-        self.configure(width=800, height=400)
+        self.configure(width=1000, height=1000)
         self.update_idletasks()
 
         # -- Attributes -- 
         
         # Displays the question
-        self.questionLabel = Label(self, text=" ", bg="light green", wraplength=300, justify="center")
+        self.questionLabel = Label(self, text="QUESTION PLACEHOLDER VALUE", bg="light green", wraplength=300, justify="center")
         self.questionLabel.place(x=270, y=100, width=300, height=100)
 
         # Displays feedback
@@ -187,8 +191,8 @@ class quizFrame(Frame): # Frame used for the quiz element of the program
         # Displays the button to submit answer
         self.submitAnswerButton = Button(self, text="Submit Answer", command=self.submitAnswer, bg="green")
         self.submitAnswerButton.place(x=360, y=450)
-        self.submitAnswerButton.update_idletasks()
-        self.submitAnswerButton.lift()
+        #self.submitAnswerButton.update_idletasks()
+        #self.submitAnswerButton.lift()
 
         print(self.submitAnswerButton.winfo_exists())  # Check if it exists  
         print(self.submitAnswerButton.winfo_ismapped())  # Check if it's visible  
