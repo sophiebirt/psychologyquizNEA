@@ -10,6 +10,8 @@ import json
 # ---- GUI OOP ----
 
 # add encapsulation - for oop reasons
+# fix long answer questions (currently doesnt show entry box)
+# remove any unecessary print statements
 
 class App(Tk): # Parent GUI class
     def __init__(self):
@@ -45,7 +47,7 @@ class App(Tk): # Parent GUI class
             with open ("userData.json") as f:
                 data = json.load(f)
             userEntry = next((u for u in data["users"] if u["username"] == passedUsername), None)
-            return userEntry
+            self.userData = userEntry
 
     welcomeLabel = Label(text = "Psychology Adaptive Quiz", font="Helvetica")
 
@@ -171,9 +173,8 @@ class welcomeFrame(Frame): # Frame that shows upon opening the program - has log
 class quizFrame(Frame): # Frame used for the quiz element of the program 
     def __init__(self, parent):
         super().__init__(parent)
-
         
-
+        self.parent = parent
         self.pack(pady=50) # Packing the quiz frame itself onto screen 
         self.configure(width=1000, height=1000)
         self.update_idletasks()
@@ -191,19 +192,14 @@ class quizFrame(Frame): # Frame used for the quiz element of the program
         # Displays the button to submit answer
         self.submitAnswerButton = Button(self, text="Submit Answer", command=self.submitAnswer, bg="green")
         self.submitAnswerButton.place(x=360, y=450)
-        #self.submitAnswerButton.update_idletasks()
-        #self.submitAnswerButton.lift()
-
-        print(self.submitAnswerButton.winfo_exists())  # Check if it exists  
-        print(self.submitAnswerButton.winfo_ismapped())  # Check if it's visible  
 
         # Entry for long answer questions
         self.answerEntry = scrolledtext.ScrolledText(self,  
                                       wrap = tk.WORD,  
                                       width = 40,  
-                                      height = 10,  
+                                      height = 3,  
                                       font = ("Helvetica", 
-                                              15)) 
+                                              15))         
 
         # Entries for the short answer GUI 
         self.entryBox1 = Entry(self, width=30)
@@ -220,25 +216,37 @@ class quizFrame(Frame): # Frame used for the quiz element of the program
         self.templateBox.place(x=50, y=230)
 
         # Next question button
-        self.nextButton = Button(self, text="Next question", command=self.next, bg="green")
-    
+        self.nextButton = Button(self, text="Next question", command=self.nextQuestion, bg="green")
 
+        self.nextQuestion()
 
 
     # -- Methods --
+    def clearForNextQuestion(self):
+        self.entryBox1.forget()
+        self.entryBox2.forget()
+        self.entryBox3.forget()
+        self.instructionsLabel.forget()
+        self.nextButton.forget()
+        self.answerEntry.place_forget()
+        self.feedbackLabel.config(text="")
 
-    def generateQuiz(self): #Generates the quiz screen
-        self.feedbackLabel.place(x=460, y=250, width=300, height=200)
-        self.questionLabel.place(x=270, y=100, width=300, height=100)
-        self.submitAnswerButton.place(x=360, y=450)
-        self.parent.welcomeLabel.place(x=300, y=50)
-        next() # Generates a new question 
+    def nextQuestion(self): # Procedure for generating a new question
+        userData = self.parent.userDataLoad(App.username)
+        if userData["numberQsSeen"] < 10: # If user has seen over 10 questions
+            chance = random.randint(1, 2) # Randomise between seen and unseen
+            chance = 2 # TEMPORARY - DELETE LATER
+            self.clearForNextQuestion()
+            if chance == 1:
+                self.seen(userData)
+            else:
+                self.unseen(userData)
 
     def generateShortAnswerGUI(self): # Main procedure involved in generating short answer GUI
-        self.answerEntry.destroy() # Removes entry box for long answer questions 
-        numEntries = int(selectedQuestion["answerEntries"])
+        numEntries = int(self.selectedQuestion["answerEntries"])
+        self.answerEntry.place_forget()
         self.instructionsLabel.place(x=55, y=350)
-        self.templateBox.config(text=selectedQuestion["answerTemplate"])
+        self.templateBox.config(text=self.selectedQuestion["answerTemplate"])
 
         # Generating correct number of entry boxes based on the number of gaps in the question
 
@@ -254,53 +262,31 @@ class quizFrame(Frame): # Frame used for the quiz element of the program
             self.entryBox2.place(x=50, y=400)
             self.entryBox3.place(x=50, y=425)
 
-    def generateLongAnswerGUI(self): # Generates long answer GUI
-        self.answerEntry.place(x=50, y=250, width=300, height=200)
-        self.entryBox1.forget()
-        self.entryBox2.forget()
-        self.entryBox3.forget()
-        self.instructionsLabel.forget()
-
     def submitAnswer(self): #Procedure for clicking the 'Submit' button on the quiz screen
         keywords = []
         self.nextButton.place(x=750, y=450)
 
-        if int(selectedQuestion["TM"]) > 6: #If over 6 marks, use the AI to generate feedback
+        if int(self.selectedQuestion["TM"]) > 6: #If over 6 marks, use the AI to generate feedback
             userAnswer = self.answerEntry.get("1.0", tk.END)
             self.getAIfeedback(userAnswer)
 
         else: #If under 6 marks, use the short answer procedure to generate feedback
-            numEntries = int(selectedQuestion["answerEntries"])
+            numEntries = int(self.selectedQuestion["answerEntries"])
             print (numEntries)
             
-        if numEntries == 1:
+            if numEntries == 1:
                 keywords.append(self.entryBox1.get())
 
-        elif numEntries == 2:
-            keywords.append(self.entryBox1.get())
-            keywords.append(self.entryBox2.get())
+            elif numEntries == 2:
+                keywords.append(self.entryBox1.get())
+                keywords.append(self.entryBox2.get())
 
-        else:
-            keywords.append(self.entryBox1.get())
-            keywords.append(self.entryBox2.get())
-            keywords.append(self.entryBox3.get())
-
-            self.checkShortAnswer(keywords, numEntries)
-
-    def startQuiz(self): # Starts the quiz
-        userData = self.parent.userDataLoad(self.parent.username) 
-        self.parent.hideWelcomeScreen()
-        self.generateQuizScreen()
-        self.unseen(userData)
-
-    def next(self): # Procedure for generating a new question
-        userData = self.parent.userDataLoad(App.username)
-        if userData["numberQsSeen"] < 10: 
-            chance = random.randint(1, 2) 
-            if chance == 1:
-                self.seen(self, userData)
             else:
-                self.unseen(self, userData)
+                keywords.append(self.entryBox1.get())
+                keywords.append(self.entryBox2.get())
+                keywords.append(self.entryBox3.get())
+
+                self.checkShortAnswer(keywords, numEntries)
 
     def getAIfeedback(self, userAnswer): #Gets AI feedback from user's answer 
     
@@ -313,7 +299,7 @@ class quizFrame(Frame): # Frame used for the quiz element of the program
             "This is my answer: {}\n"
             "An answer with no input should get no marks\n"
             "And then give me advice on how to improve the answer\n"
-            "Keep the advice concise, ideally between 50 and 100 words").format(selectedQuestion["question"], selectedQuestion["TM"], userAnswer)
+            "Keep the advice concise, ideally between 50 and 100 words").format(self.selectedQuestion["question"], self.selectedQuestion["TM"], userAnswer)
 
         payload = {
             "model": "gpt-3.5-turbo",
@@ -326,7 +312,7 @@ class quizFrame(Frame): # Frame used for the quiz element of the program
         } 
 
         headers = {
-            'x-rapidapi-key': "",
+            'x-rapidapi-key': "8a9d2f1852msh9c3f4bdd83b06b6p1fdcd4jsn1cb9df06fe04",
             'x-rapidapi-host': "chat-gpt26.p.rapidapi.com",
             'Content-Type': "application/json"
         }
@@ -343,7 +329,7 @@ class quizFrame(Frame): # Frame used for the quiz element of the program
 
     def checkAnswer(self, keywordsList, counter, answerNumber): #Assists in checking the short answer entered by the user
         cText = self.feedbackLabel.cget("text")
-        if keywordsList[counter] == selectedQuestion["answer{}".format(counter+1)]: # Checking if the correct keyword matches with the user's answer
+        if keywordsList[counter] == self.selectedQuestion["answer{}".format(counter+1)]: # Checking if the correct keyword matches with the user's answer
             self.feedbackLabel.config(text=cText+"Answer {} correct, ".format(counter+1)) # Altering feedback label based on result
 
         else:
@@ -351,19 +337,19 @@ class quizFrame(Frame): # Frame used for the quiz element of the program
 
     def checkShortAnswer(self, keywordsList, numberEntries): 
         self.feedbackLabel.config(text="")
-        numberLoops = selectedQuestion["answerEntries"] # For amount of possible answers, continue looping
+        numberLoops = self.selectedQuestion["answerEntries"] # For amount of possible answers, continue looping
         for i in range(0, numberLoops):
             answerNumber = str(i+1)
             self.checkAnswer(keywordsList, i, answerNumber)
     
     def seen(self, userData):
-        global selectedQuestion
-    
+        pass # fix this
+
     def generateUnseenQ(self, questions, seenQuestions): # Generates unseen question
         while True: # Loops until it finds an unseen question
-            selectedQuestion = random.choice(questions["questionsList"])  
-            if selectedQuestion["questionNo"] not in seenQuestions: 
-                return selectedQuestion 
+            self.selectedQuestion = random.choice(questions["questionsList"])  
+            if self.selectedQuestion["questionNo"] not in seenQuestions: 
+                return self.selectedQuestion 
             
     def unseen(self, userData): #Procedure for an unseen question
         with open ("questions.json") as f:
@@ -371,19 +357,23 @@ class quizFrame(Frame): # Frame used for the quiz element of the program
 
         influencedGenerator = random.randint(1,2) # 1 = influenced, 2 = non-influenced
         influencedGenerator = 2 # DELETE THIS LATER
-        #if influencedGenerator == 1: 
+        
+        if influencedGenerator == 1: 
+            pass # fix this later
 
-        if influencedGenerator == 2: # Non-influenced
+        elif influencedGenerator == 2: # Non-influenced
             seenQuestions = userData.get("seenQs", []) 
-            self.generateUnseenQ(self, questions, seenQuestions) 
+            self.selectedQuestion = self.generateUnseenQ(questions, seenQuestions) 
 
-            self.questionLabel.config(text=selectedQuestion["question"]) # Changing question label to display the question
+        self.questionLabel.config(text=self.selectedQuestion["question"]) # Changing question label to display the question
+        if int(self.selectedQuestion["TM"]) < 6: #Total marks less than six, use short answer GUI 
+            self.generateShortAnswerGUI()    
 
-            if int(selectedQuestion["TM"]) < 6: #Total marks less than six, use short answer GUI 
-                quizFrame.generateShortAnswerGUI()    
+        else: #Total marks more than six, use long answer GUI
+            self.clearForNextQuestion()
+            self.feedbackLabel.forget() 
+            self.answerEntry.place(x=50, y=300, width=300, height=150)
 
-            else: #Total marks more than six, use long answer GUI
-                quizFrame.generateLongAnswerGUI()    
     
 
 # ---- PROGRAM START ----
