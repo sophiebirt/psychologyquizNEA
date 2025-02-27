@@ -4,5 +4,11 @@
         "password": "examplePassword",
         "seen_questions": [],
         "weakest_topics": []
+    },
+    {
+        "name": "exampleUser",
+        "password": "examplePassword",
+        "seen_questions": [],
+        "weakest_topics": []
     }
 ]

@@ -13,6 +13,22 @@ import json
 # fix long answer questions (currently doesnt show entry box)
 # remove any unecessary print statements
 
+class User:
+    def __init__(self, name, password, seen_questions, weekest_topics):
+        self.__name = name
+        self.__password = password
+        self.__seen_questions = seen_questions
+        self.__weakest_topics = weekest_topics
+
+    def login():
+        # check login details and create and return user obj
+        pass
+
+    def create_accoutn():
+        
+
+
+
 class App(Tk): # Parent GUI class
     def __init__(self):
         super().__init__()
@@ -97,6 +113,10 @@ class welcomeFrame(Frame): # Frame that shows upon opening the program - has log
         self.parent.username = self.entryUser.get()
         self.password = self.entryPassword.get()
         currentColour = self.entryUser.cget("bg")
+
+        print(f"CREATING NEW ACCOUNT for U: {self.parent.username} with P: {self.password}")
+
+
         if currentColour == "light pink": #If on the new account screen, create a new account
             self.createNewAccount(self.parent.username, self.password)
 
@@ -135,6 +155,9 @@ class welcomeFrame(Frame): # Frame that shows upon opening the program - has log
     
         
     def createNewAccount(newUsername, newPassword): # Creating a new account
+
+        print(f"CREATING NEW ACCOUNT for U: {newUsername} with P: {newPassword}")
+
         newUser = {"username": newUsername, "password": newPassword}
         with open("userDetails.json") as f: # User details file
             userDetails = json.load(f)
@@ -143,6 +166,9 @@ class welcomeFrame(Frame): # Frame that shows upon opening the program - has log
             if user["username"] == newUsername:
                 print ("User with this name already exists. Please try again with a new username.")
                 return
+        
+        ## New User Object Being Created
+        user = User(newUsername, newPassword, [], [])
 
         userDetails["userDetailsDict"].append(newUser) # Setting new details
         with open("userDetails.json", "w") as f: # Writing new details to userDetails 
