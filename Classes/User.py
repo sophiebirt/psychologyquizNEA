@@ -3,8 +3,6 @@ import os
 
 ## TODO:
 # -> hashing
-# -> input validation 
-
 
 class User:
     def __init__(self, name, password, seen_questions= None, weakest_topics = None):
@@ -25,8 +23,6 @@ class User:
             "weakest_topics": self.__weakest_topics 
         }
 
-    ## SOPHIE TODO: 
-    # -> add in input validation, minimum length for username and password, no punctuation in username, etc 
     @staticmethod
     def create_account(name, password, file_path="userData.json"):
         user = User(name, password)
@@ -42,8 +38,22 @@ class User:
         else:
             data = []
 
-        # add our new user data
-        data.append(user_data)
+        # user input validation - SOPHIE 
+        def validate_input(string): 
+            valid_length = len(string) >= 8 # is it longer than 8 chars?? 
+            contains_number = any(char.isdigit() for char in string) # are any of the characters digits?
+            contains_punctuation = string.isalnum() # any punctuation?
+        
+            return all([valid_length, contains_number, contains_punctuation])
+
+        if validate_input(name) and validate_input(password):
+            # add our new user data
+            data.append(user_data)
+            print (">>> Account Successfully Created <<<")
+
+        else:
+            print (">>> Invalid input - username AND password should be >7 chars, no punctuation/spaces and contain a number <<<")
+
 
         # write back to the file
         with open(file_path, 'w') as file:
