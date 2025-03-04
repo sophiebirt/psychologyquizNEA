@@ -1,71 +1,53 @@
 from Classes.User import User
 from Classes.Question import Question
 from Classes.SingleAnswer import SingleAnswer
+from Classes.QuestionHandler import QuestionHandler
 
 import os
 import json
-
-# Static Variables
-SINGLE_ANSWER_Q_FILE = "psychologyquizNEA\questions\single_answer.json"
-
-
-class QuestionHandler():
-    def __init__(self):
-        pass
-
-    def load_questions(self, file_location):
-         # if we can find file, read it and store it as data
-        if os.path.exists(file_location):
-            with open(file_location, 'r') as file:
-                data = json.load(file)
-                return data
-        else:
-            print("Could not find file")
-            return None
-        
-    def create_single_answer_question_objects(self, file_location):
-        question_data = self.load_questions(file_location)
-        question_array = question_data['questionsList']
-        #print(question_array)
-
-        question_objects = []
-
-        print(len(question_array))
-
-        for q in question_array:
-            question_number = q["questionNo"]
-            question = q["question"]
-            topic = q["topic"]
-            marks = q["TM"]
-            correct_answer = q["correct_answer"]
-            print(question_number)
-
-            new_question = SingleAnswer(question, topic, "short", marks, question_number, correct_answer)
-            question_objects.append(new_question)
-
-        return question_objects
-            
-            
+import random
 
 
 
-new_user = User.create_account("exampleuser200", "examplepassword200")
-#print("New user created:", new_user)
+class Quiz:
+    
+    def __init__(self, user):
+        self.__question_handler = QuestionHandler()
 
-question_handler = QuestionHandler()
-single_answer_question_objects = question_handler.create_single_answer_question_objects(SINGLE_ANSWER_Q_FILE)
+        # load all questions from JSON as objects
+        self.__single_answer_qs = self.__question_handler.create_single_answer_question_objects()
+        #self.__multiple_choice_qs = [] # you will update this
+        self.__user = user # this is a user object 
 
-for question in single_answer_question_objects:
-    print(question.get_question())
+        # a 2d list of all question objects, separated by type
+        self.__all_questions = [
+            self.__single_answer_qs  
+        ]
 
-print(single_answer_question_objects)
 
-#question1 = SingleAnswer(SINGLE_ANSWER_Q_FILE, "label", ) 
 
-#new_user = User.login("james", "james123") # This should return and error
+    def create_question_chunk(self):
+        # Get one question of each type
+        question_chunk = []
 
-#new_user = User.login("exampleUser", "examplePassword")
+        for i in range(len(self.__all_questions)):
+            # pick one random question from each 
 
-#print(new_user)
+            random_index = random.randint(0, len(self.__all_questions[i]))
+
+            question_to_be_added = self.__all_questions[i][random_index]
+            # TODO update the uses completed question list, check they havent already done it
+            question_chunk.append(question_to_be_added)
+
+        return question_chunk
+
+
+if __name__ == "__main__":
+    user = User.create_account("exampleuser200", "examplepassword200")
+    quiz = Quiz(user=user)
+    quiz_chunk = quiz.create_question_chunk()
+    print(quiz_chunk)
+
+
 
 

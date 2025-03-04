@@ -1,14 +1,14 @@
 {
     "questionsList": [
       {
-        "questionNo": 1,
+        "q_id": 1,
         "question": "What is the first letter of the Alphabet [2 marks]",
         "topic": "General",
         "TM": "1",
         "correct_answer": "a"
       },
       {
-        "questionNo": 2,
+        "q_id": 2,
         "question": "What is the colour of the sky [2 marks]",
         "topic": "General",
         "TM": "2",
