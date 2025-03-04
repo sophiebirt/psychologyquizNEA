@@ -1,19 +1,13 @@
 [
     {
-        "name": "exampleUser",
-        "password": "examplePassword",
+        "name": "exampleuser200!",
+        "password": "examplepassword200!",
         "seen_questions": [],
         "weakest_topics": []
     },
     {
-        "name": "exampleUsermeow1",
-        "password": "examplePasswordmeow2",
-        "seen_questions": [],
-        "weakest_topics": []
-    },
-    {
-        "name": "exampleuser200",
-        "password": "examplepassword200",
+        "name": "exampleuser200!",
+        "password": "examplepassword200!",
         "seen_questions": [],
         "weakest_topics": []
     }

@@ -3,6 +3,8 @@ import os
 
 ## TODO:
 # -> hashing
+# -> check user does not already exist
+
 
 class User:
     def __init__(self, name, password, seen_questions= None, weakest_topics = None):
@@ -10,6 +12,9 @@ class User:
         self.__password = password
         self.__seen_questions = seen_questions if seen_questions else []
         self.__weakest_topics = weakest_topics if weakest_topics else []
+
+        self.__valid_username_length = 5
+        self.__valid_password_length = 8
 
     def login():
         # check login details and create and return user obj
@@ -22,9 +27,38 @@ class User:
             "seen_questions": self.__seen_questions,
             "weakest_topics": self.__weakest_topics 
         }
+    
+    # user input validation - SOPHIE 
+    def validate_username(self, username): 
+        
+        valid_length = len(username) >= self.__valid_username_length # is it longer than 5 chars?? 
+        contains_punctuation = not username.isalnum()  
+
+        if not valid_length: print(f"The length of {username} is not greater than {self.__valid_username_length}")
+        
+
+        valid_length
+        
+        return valid_length
+    
+    def validate_password(self, password): 
+        valid_length = len(password) >= self.__valid_password_length    # is it longer than 8 chars?? 
+        contains_number = any(char.isdigit() for char in password)      # are any of the characters digits?
+        contains_punctuation = not password.isalnum()                       # any punctuation?
+
+        # TODO 
+        # -> Change this return the strings in print and display to UI 
+        if not valid_length: print(f"The length of Password is not greater than {self.__valid_password_length}")
+        if not contains_number: print(f"Password must contain a number")
+        if not contains_punctuation: print(f"Password must contain punctuation")
+
+        all_conditions = valid_length and contains_number and contains_punctuation
+    
+        return all_conditions
 
     @staticmethod
     def create_account(name, password, file_path="userData.json"):
+        # Create object 
         user = User(name, password)
         user_data = user.to_dict()
 
@@ -38,21 +72,14 @@ class User:
         else:
             data = []
 
-        # user input validation - SOPHIE 
-        def validate_input(string): 
-            valid_length = len(string) >= 8 # is it longer than 8 chars?? 
-            contains_number = any(char.isdigit() for char in string) # are any of the characters digits?
-            contains_punctuation = string.isalnum() # any punctuation?
-        
-            return all([valid_length, contains_number, contains_punctuation])
-
-        if validate_input(name) and validate_input(password):
+        if user.validate_username(name) and user.validate_password(password):
             # add our new user data
             data.append(user_data)
             print (">>> Account Successfully Created <<<")
 
         else:
-            print (">>> Invalid input - username AND password should be >7 chars, no punctuation/spaces and contain a number <<<")
+            # Exit Function 
+            return None
 
 
         # write back to the file
