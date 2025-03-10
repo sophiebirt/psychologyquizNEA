@@ -36,7 +36,6 @@ class User:
 
         if not valid_length: print(f"The length of {username} is not greater than {self.__valid_username_length}")
         
-
         valid_length
         
         return valid_length

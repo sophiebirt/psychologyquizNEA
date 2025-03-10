@@ -1,0 +1,27 @@
+{
+    "questionsList": [
+      {
+        "q_id": 3,
+        "question": "What animal eats bamboo?",
+        "topic": "General",
+        "TM": "1",
+        "correct_answer": "panda",
+        "answer_option_1": "fish",
+        "answer_option_2": "iguana",
+        "answer_option_3": "cheetah",
+        "answer_option_4": "flamingo"
+      },
+      {
+        "q_id": 4,
+        "question": "What is the male mouse mascot from Disney called?",
+        "topic": "General",
+        "TM": "1",
+        "correct_answer": "mickey",
+        "answer_option_1": "ricky",
+        "answer_option_2": "bartholomew",
+        "answer_option_3": "mickey",
+        "answer_option_4": "evangeline"
+      }
+      
+    ]
+  }

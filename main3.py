@@ -16,12 +16,13 @@ class Quiz:
 
         # load all questions from JSON as objects
         self.__single_answer_qs = self.__question_handler.create_single_answer_question_objects()
-        #self.__multiple_choice_qs = [] # you will update this
+        self.__multiple_choice_qs = self.__question_handler.create_multiple_choice_question_objects()
         self.__user = user # this is a user object 
 
         # a 2d list of all question objects, separated by type
         self.__all_questions = [
-            self.__single_answer_qs  
+            self.__single_answer_qs,
+            self.__multiple_choice_qs
         ]
 
 
@@ -36,7 +37,7 @@ class Quiz:
             random_index = random.randint(0, len(self.__all_questions[i]))
 
             question_to_be_added = self.__all_questions[i][random_index]
-            # TODO update the uses completed question list, check they havent already done it
+            # TODO update the users completed question list, check they havent already done it
             question_chunk.append(question_to_be_added)
 
         return question_chunk
