@@ -6,6 +6,8 @@ import os
 # -> check user does not already exist
 
 
+
+
 class User:
     def __init__(self, name, password, seen_questions= None, weakest_topics = None):
         self.__name = name
@@ -15,10 +17,6 @@ class User:
 
         self.__valid_username_length = 5
         self.__valid_password_length = 8
-
-    def login():
-        # check login details and create and return user obj
-        pass
 
     def to_dict(self):
         return {
@@ -56,7 +54,7 @@ class User:
         return all_conditions
 
     @staticmethod
-    def create_account(name, password, file_path="userData.json"):
+    def create_account(name, password, file_path):
         # Create object 
         user = User(name, password)
         user_data = user.to_dict()
@@ -88,15 +86,16 @@ class User:
         return user
     
     @staticmethod
-    def login(name, password, file_path="userData.json"):
+    def login(name, password, file_path):
         # check if the file path exists
         if os.path.exists(file_path):
-            print("No user data found")
+            # Load existing users 
+            with open(file_path, 'r') as file:
+                data = json.load(file)
+        else:
             return None
     
-        # Load existing users 
-        with open(file_path, 'r') as file:
-            data = json.load(file)
+        
 
         # Linear search (this can and should be improved later with hashing)
 
@@ -109,3 +108,8 @@ class User:
 
         print(">>> Invalid Username or Password <<<")
         return None
+    
+    ## GETTER AND SETTER METHODS
+
+    def get_name(self):
+        return self.__name

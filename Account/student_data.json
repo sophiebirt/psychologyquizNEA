@@ -1,0 +1,32 @@
+[
+    {
+        "name": "exampleuser200!",
+        "password": "examplepassword200!",
+        "seen_questions": [],
+        "weakest_topics": []
+    },
+    {
+        "name": "exampleuser200!",
+        "password": "examplepassword200!",
+        "seen_questions": [],
+        "weakest_topics": []
+    },
+    {
+        "name": "asdfa",
+        "password": "asdf!1asdf",
+        "seen_questions": [],
+        "weakest_topics": []
+    },
+    {
+        "name": "asdfq",
+        "password": "asdfasdf112!",
+        "seen_questions": [],
+        "weakest_topics": []
+    },
+    {
+        "name": "testing",
+        "password": "testingtesting123!",
+        "seen_questions": [],
+        "weakest_topics": []
+    }
+]

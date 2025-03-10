@@ -10,8 +10,8 @@ from Classes.MultipleChoice import MultipleChoice
 #   -> create a MultipleChoice class (use single answer as template) ✅ (MultipleChoice.py)
 #   -> create the loads objects function like below (do we actually need one of these? is that not what line 19 does?)
 
-SINGLE_ANSWER_Q_FILE = "questions\single_answer.json"
-MULTIPLE_CHOICE_Q_FILE = "questions\multiple_choice.json"
+SINGLE_ANSWER_Q_FILE = "psychologyquizNEA\questions\single_answer.json"
+MULTIPLE_CHOICE_Q_FILE = "psychologyquizNEA\questions\multiple_choice.json"
 
 class QuestionHandler():
     def __init__(self):
@@ -63,12 +63,9 @@ class QuestionHandler():
             topic = q["topic"]
             marks = q["TM"]
             correct_answer = q["correct_answer"]
-            answer_option_1 = q["answer_option_1"]
-            answer_option_2 = q["answer_option_2"]
-            answer_option_3 = q["answer_option_3"]
-            answer_option_4 = q["answer_option_4"]
+            answer_options = [q["answer_option_1"], q["answer_option_2"], q["answer_option_3"], q["answer_option_4"]]
             
-            new_question = MultipleChoice(q_id, question, topic, "short", marks, correct_answer, answer_option_1, answer_option_2, answer_option_3,  answer_option_4)
+            new_question = MultipleChoice(q_id, question, topic, "short", marks, correct_answer, answer_options)
             question_objects.append(new_question)
 
         return question_objects
