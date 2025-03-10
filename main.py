@@ -22,7 +22,6 @@ class QuizApp():
         self.__window.title("Psychology Quiz")
         self.__window.geometry("600x400")
 
-
         # Question Data 
         self.__question_handler = QuestionHandler()
         self.__single_answer_qs = self.__question_handler.create_single_answer_question_objects()
@@ -81,8 +80,6 @@ class QuizApp():
         self.__back_button = ctk.CTkButton(self.__window, text="Back to Login", fg_color="gray", command=self.create_login_page)
         self.__back_button.pack(pady=5)
 
-    
-
     def login(self):
         username = self.__username_entry.get()
         password = self.__password_entry.get()
@@ -111,7 +108,6 @@ class QuizApp():
 
     def run(self):
         self.__window.mainloop()    
-        
         
     def create_question_chunk(self):
         # Get one question of each type

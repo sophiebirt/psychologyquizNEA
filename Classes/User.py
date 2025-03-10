@@ -12,11 +12,18 @@ class User:
     def __init__(self, name, password, seen_questions= None, weakest_topics = None):
         self.__name = name
         self.__password = password
-        self.__seen_questions = seen_questions if seen_questions else []
-        self.__weakest_topics = weakest_topics if weakest_topics else []
 
         self.__valid_username_length = 5
         self.__valid_password_length = 8
+
+        # Stats Attributes:
+        self.__questions_completed = 0
+        self.__seen_questions = []
+        self.__weakest_topics = []
+        self.__completed_topics = [] 
+        self.__quiz_scores = []
+        self.__average_score_per_quiz = None
+        
 
     def to_dict(self):
         return {
