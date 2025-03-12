@@ -120,3 +120,15 @@ class User:
 
     def get_name(self):
         return self.__name
+
+    def get_questions_completed(self):
+        return self.__questions_completed
+    
+    def get_weakest_topics(self):
+        return self.__weakest_topics
+    
+    def get_completed_topics(self):
+        return self.__completed_topics
+
+    def get_average_score_per_quiz(self):
+        return self.__average_score_per_quiz

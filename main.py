@@ -10,14 +10,14 @@ import json
 import random
 
 # Static
-ACCOUNT_DATA = "psychologyquizNEA/Account/student_data.json" # this may vary depending on machine and dev environment 
+ACCOUNT_DATA = "Account\student_data.json" # this may vary depending on machine and dev environment 
 
 
 class QuizApp():
     
     def __init__(self):
-
-        # TKinter Data
+        
+        # TKinter Data 
         self.__window = ctk.CTk()
         self.__window.title("Psychology Quiz")
         self.__window.geometry("600x400")
@@ -80,6 +80,42 @@ class QuizApp():
         self.__back_button = ctk.CTkButton(self.__window, text="Back to Login", fg_color="gray", command=self.create_login_page)
         self.__back_button.pack(pady=5)
 
+    def create_quiz_dashboard(self):
+        """Creates the login page UI."""
+        for widget in self.__window.winfo_children():
+            widget.destroy()
+
+        weakest_topics = self.__user.get_weakest_topics()
+        questions_completed = self.__user.get_questions_completed()
+        completed_topics = self.__user.get_completed_topics()
+        average_score_per_quiz = self.__user.get_average_score_per_quiz()
+    
+
+        # Title Label
+        self.title_label = ctk.CTkLabel(self.__window, text="Welcome to Your Quiz Dashboard!", font=("Arial", 20, "bold", "underline"))
+        self.title_label.pack(pady=20)
+        
+        # Weakest Topics
+        self.weak_label = ctk.CTkLabel(self.__window, text=f"Weakest Topics: {weakest_topics}", font=("Arial", 16))
+        self.weak_label.pack(pady=10)
+        
+        # Total Questions Completed
+        self.total_label = ctk.CTkLabel(self.__window, text=f"Total Questions Completed: {questions_completed}", font=("Arial", 16))
+        self.total_label.pack(pady=10)
+        
+        # Total topics completed
+        self.completed_topics_label = ctk.CTkLabel(self.__window, text=f"Total Topics Completed: {completed_topics}", font=("Arial", 16))
+        self.completed_topics_label.pack(pady=10)
+
+        # Average score per quiz 
+        self.average_score_per_quiz_label = ctk.CTkLabel(self.__window, text=f"Average score per quiz: {average_score_per_quiz}", font=("Arial", 16))
+        self.average_score_per_quiz_label.pack(pady=10)
+
+
+        # Start Quiz Button
+        self.start_button = ctk.CTkButton(self.__window, text="Start Quiz")
+        self.start_button.pack(pady=20)
+        
     def login(self):
         username = self.__username_entry.get()
         password = self.__password_entry.get()
@@ -88,6 +124,8 @@ class QuizApp():
 
         if self.__user: 
             print(f"{self.__user.get_name()} has logged in!")
+            self.create_quiz_dashboard()
+
         else: 
             print(f"Username or Password not correct")
 
@@ -105,7 +143,6 @@ class QuizApp():
         else:
             print("Please enter a valid username and password.")
     
-
     def run(self):
         self.__window.mainloop()    
         
