@@ -7,7 +7,6 @@ import os
 
 
 
-
 class User:
     def __init__(self, name, password, seen_questions= None, weakest_topics = None):
         self.__name = name
@@ -59,6 +58,12 @@ class User:
         all_conditions = valid_length and contains_number and contains_punctuation
     
         return all_conditions
+    
+    
+    def update_user_stats(self): # THIS SHOULD BE A USER FUNCTION 
+            # This takes in all the user stats as params 
+            # Write these to their file and their object 
+            pass
 
     @staticmethod
     def create_account(name, password, file_path):

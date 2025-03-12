@@ -10,7 +10,7 @@ import json
 import random
 
 # Static
-ACCOUNT_DATA = "Account\student_data.json" # this may vary depending on machine and dev environment 
+ACCOUNT_DATA = "psychologyquizNEA\Account\student_data.json" # this may vary depending on machine and dev environment 
 
 
 class QuizApp():
@@ -80,6 +80,7 @@ class QuizApp():
         self.__back_button = ctk.CTkButton(self.__window, text="Back to Login", fg_color="gray", command=self.create_login_page)
         self.__back_button.pack(pady=5)
 
+
     def create_quiz_dashboard(self):
         """Creates the login page UI."""
         for widget in self.__window.winfo_children():
@@ -113,8 +114,47 @@ class QuizApp():
 
 
         # Start Quiz Button
-        self.start_button = ctk.CTkButton(self.__window, text="Start Quiz")
+        self.start_button = ctk.CTkButton(self.__window, text="Start Quiz", command=self.run_quiz_chunk)
         self.start_button.pack(pady=20)
+
+    def create_question_chunk(self):
+        # Get one question of each type
+        question_chunk = []
+
+        for i in range(len(self.__all_questions)):
+            # pick one random question from each 
+
+            random_index = random.randint(0, len(self.__all_questions[i]) - 1)
+
+
+            question_to_be_added = self.__all_questions[i][random_index]
+            # TODO update the uses completed question list, check they havent already done it
+            question_chunk.append(question_to_be_added)
+
+        return question_chunk
+
+    def run_quiz_chunk(self):
+        print("=== STARTED QUIZ CHUNK ===")
+        print(self.__all_questions)
+
+        question_chunk = self.create_question_chunk()
+
+        first_question = question_chunk[0]
+        second_question = question_chunk[1]
+        
+        # TODO 
+        # Display question page should end up calling itself, passing the question chunk as a paramter and finishing when all question are done, and it should output
+        # total correct int, total incorrect int, topics failed, 
+        # SOPHIE -> code display_question_page, for the second question which is a multiple choice 
+
+        first_question.display_question_page(quiz_object_window=self.__window, current_question_number=1, total_number_of_questions=10)
+        second_question.display_question_page(quiz_object_window=self.__window, current_question_number=2, total_number_of_questions=10)
+
+        # update user stats
+
+    
+
+
         
     def login(self):
         username = self.__username_entry.get()
@@ -146,22 +186,7 @@ class QuizApp():
     def run(self):
         self.__window.mainloop()    
         
-    def create_question_chunk(self):
-        # Get one question of each type
-        question_chunk = []
-
-        for i in range(len(self.__all_questions)):
-            # pick one random question from each 
-
-            random_index = random.randint(0, len(self.__all_questions[i]) - 1)
-
-
-            question_to_be_added = self.__all_questions[i][random_index]
-            # TODO update the uses completed question list, check they havent already done it
-            question_chunk.append(question_to_be_added)
-
-        return question_chunk
-
+    
 
 if __name__ == "__main__":
     #user = User.create_account("exampleuser200", "examplepassword200")
