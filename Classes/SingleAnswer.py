@@ -15,7 +15,6 @@ class SingleAnswer(Question):
         self.__question = question
         self.__answer = ""
         self.__correct_answer = correct_answer
-        self.__correct = None
 
     def get_question(self):
         return self.__question

@@ -10,7 +10,7 @@ import json
 import random
 
 # Static
-ACCOUNT_DATA = "psychologyquizNEA\Account\student_data.json" # this may vary depending on machine and dev environment 
+ACCOUNT_DATA = "Account\student_data.json" # this may vary depending on machine and dev environment 
 
 
 class QuizApp():
@@ -125,7 +125,6 @@ class QuizApp():
             # pick one random question from each 
 
             random_index = random.randint(0, len(self.__all_questions[i]) - 1)
-
 
             question_to_be_added = self.__all_questions[i][random_index]
             # TODO update the uses completed question list, check they havent already done it

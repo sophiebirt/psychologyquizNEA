@@ -4,8 +4,8 @@ import json
 from Classes.SingleAnswer import SingleAnswer
 from Classes.MultipleChoice import MultipleChoice
 
-SINGLE_ANSWER_Q_FILE = "psychologyquizNEA\questions\single_answer.json"
-MULTIPLE_CHOICE_Q_FILE = "psychologyquizNEA\questions\multiple_choice.json"
+SINGLE_ANSWER_Q_FILE = "questions\single_answer.json"
+MULTIPLE_CHOICE_Q_FILE = "questions\multiple_choice.json"
 
 class QuestionHandler():
     def __init__(self):
@@ -35,8 +35,7 @@ class QuestionHandler():
             question = q["question"]
             topic = q["topic"]
             marks = q["TM"]
-            correct_answer = q["correct_answer"]
-            
+            correct_answer = q["correct_answer"]            
 
             new_question = SingleAnswer(q_id, question, topic, "short", marks, correct_answer)
             question_objects.append(new_question)

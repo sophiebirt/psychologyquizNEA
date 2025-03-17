@@ -28,5 +28,11 @@
         "password": "testingtesting123!",
         "seen_questions": [],
         "weakest_topics": []
+    },
+    {
+        "name": "test",
+        "password": "test",
+        "seen_questions": [],
+        "weakest_topics": []
     }
 ]

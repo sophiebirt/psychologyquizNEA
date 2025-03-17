@@ -5,8 +5,6 @@ import os
 # -> hashing
 # -> check user does not already exist
 
-
-
 class User:
     def __init__(self, name, password, seen_questions= None, weakest_topics = None):
         self.__name = name
@@ -32,7 +30,6 @@ class User:
             "weakest_topics": self.__weakest_topics 
         }
     
-    # user input validation - SOPHIE 
     def validate_username(self, username): 
         
         valid_length = len(username) >= self.__valid_username_length # is it longer than 5 chars?? 
@@ -60,9 +57,12 @@ class User:
         return all_conditions
     
     
-    def update_user_stats(self): # THIS SHOULD BE A USER FUNCTION 
+    def update_user_stats(self): # SOPHIE -- THIS SHOULD BE A USER FUNCTION 
             # This takes in all the user stats as params 
             # Write these to their file and their object 
+            
+            # writing to file bit
+            
             pass
 
     @staticmethod
