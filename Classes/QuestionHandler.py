@@ -4,8 +4,9 @@ import json
 from Classes.SingleAnswer import SingleAnswer
 from Classes.MultipleChoice import MultipleChoice
 
-SINGLE_ANSWER_Q_FILE = "questions\single_answer.json"
-MULTIPLE_CHOICE_Q_FILE = "questions\multiple_choice.json"
+SINGLE_ANSWER_Q_FILE = "psychologyquizNEA\questions\single_answer.json"
+MULTIPLE_CHOICE_Q_FILE = "psychologyquizNEA\questions\multiple_choice.json"
+
 
 class QuestionHandler():
     def __init__(self):

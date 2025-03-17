@@ -22,6 +22,9 @@ class MultipleChoice(Question):
     def get_question(self):
         return self.__question
     
+    def get_marks(self):
+        return super().get_marks()
+    
     def check_answer(self):
         if self.__selected_option.get() == self.__correct_answer:
             print ("Correct")
@@ -29,27 +32,36 @@ class MultipleChoice(Question):
         else:
             print("Incorrect")
 
-    def display_question_page(self, quiz_object_window, current_question_number, total_number_of_questions):
-        """Displays the unique setup for single answer questions"""
+    def display_question_page(self, quiz_object_window, current_question_number, total_number_of_questions, callback):
+        """Displays the unique setup for multiple-choice questions"""
         for widget in quiz_object_window.winfo_children():
             widget.destroy()
 
-        ctk.CTkLabel(quiz_object_window, text=(f"Multiple Choice Question - Topic: {self._topic}"), font=("Arial", 18)).pack(pady=10)
-        ctk.CTkLabel(quiz_object_window, text=(f"{current_question_number} / {total_number_of_questions}"), font=("Arial", 10)).pack(pady=10)
+        ctk.CTkLabel(quiz_object_window, text=f"Multiple Choice Question - Topic: {self._topic}", font=("Arial", 18)).pack(pady=10)
+        ctk.CTkLabel(quiz_object_window, text=f"{current_question_number} / {total_number_of_questions}", font=("Arial", 10)).pack(pady=5)
         ctk.CTkLabel(quiz_object_window, text=self.__question, font=("Arial", 18)).pack(pady=10)
         
-        # List of options
-        options = self.__answer_options
-
-        # Variable to track selected option
+        # Create a variable to track selected answer
         self.__selected_option = ctk.StringVar(value="None")
 
-        for option in options:
-            radio_btn = ctk.CTkRadioButton(quiz_object_window, text=option, variable=self.__selected_option, value=option)
-            radio_btn.pack(pady=10)        
+        # Create radio buttons for each answer option
+        for option in self.__answer_options:
+            ctk.CTkRadioButton(quiz_object_window, text=option, variable=self.__selected_option, value=option).pack(pady=5)
 
-        self.__correct = ctk.CTkButton(quiz_object_window, text="Submit Answer", command=self.check_answer)
-        self.__correct.pack(pady=10)
-        
+        # Submit button with a callback to check the answer and move forward
+        submit_button = ctk.CTkButton(quiz_object_window, text="Submit Answer", 
+                                    command=lambda: self.submit_and_continue(callback))
+        submit_button.pack(pady=10)
+
+    def submit_and_continue(self, callback):
+        """Checks answer, updates stats, and calls the next question."""
+        selected_answer = self.__selected_option.get()
+        is_correct = selected_answer.lower() == self.__correct_answer.lower()
+
+        print(f"Selected Answer: {selected_answer}, Correct Answer: {self.__correct_answer}, Result: {is_correct}")
+
+        # Call the callback function to proceed to the next question
+        callback(is_correct, self._topic)
+
 
 

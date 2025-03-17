@@ -6,7 +6,7 @@ import os
 # -> check user does not already exist
 
 class User:
-    def __init__(self, name, password, seen_questions= None, weakest_topics = None):
+    def __init__(self, name, password, seen_questions= None, weakest_topics = None, quiz_marks = None):
         self.__name = name
         self.__password = password
 
@@ -15,11 +15,12 @@ class User:
 
         # Stats Attributes:
         self.__questions_completed = 0
+
         self.__seen_questions = []
-        self.__weakest_topics = []
+        self.__weakest_topics = {}
         self.__completed_topics = [] 
-        self.__quiz_scores = []
-        self.__average_score_per_quiz = None
+        self.__quiz_marks = []
+        self.__average_marks_per_quiz = None
         
 
     def to_dict(self):
@@ -57,13 +58,52 @@ class User:
         return all_conditions
     
     
-    def update_user_stats(self): # SOPHIE -- THIS SHOULD BE A USER FUNCTION 
-            # This takes in all the user stats as params 
-            # Write these to their file and their object 
+    def update_user_stats(self, file_path):
+        """Updates the user's stats in the student_data.json file."""
+        if not os.path.exists(file_path):
+            print(">>> Error: User data file not found! <<<")
+            return
+        
+        # Load the current user data
+        with open(file_path, 'r') as file:
+            users = json.load(file)
+
+        # Find and update the correct user
+        user_found = False
+        for user in users:
+            if user["name"] == self.__name:
+                user["seen_questions"] = self.__seen_questions
+                user["weakest_topics"] = self.__weakest_topics
+                user["questions_completed"] = self.__questions_completed
+                user["completed_topics"] = self.__completed_topics
+                user["quiz_marks"] = self.__quiz_marks
+                user["average_marks_per_quiz"] = self.__average_marks_per_quiz
+                user_found = True
+                break
+
+        if not user_found:
+            print(">>> Error: User not found in database! <<<")
+            return
+        
+        # Write the updated data back to the file
+        with open(file_path, 'w') as file:
+            json.dump(users, file, indent=4)
+
+        print(">>> User statistics updated successfully! <<<")
+    
+    def increment_weakest_topics(self, list_of_failed_topics):
+        for topic in list_of_failed_topics:
+            try: 
+                self.__weakest_topics[topic] += 1 
+            except:
+                self.__weakest_topics[topic] = 1
             
-            # writing to file bit
-            
-            pass
+    def increase_questions_completed(self, number_of_completed_questions):
+        self.__questions_completed = self.__questions_completed + number_of_completed_questions
+
+    def update_quiz_marks(self, new_quiz_marks):
+        self.__quiz_marks.append(new_quiz_marks)
+    
 
     @staticmethod
     def create_account(name, password, file_path):
@@ -115,7 +155,8 @@ class User:
         for u in data:
             if u["name"] == name and u["password"] == password:
                 print(">>> Login Successful <<<")
-                user = User(u["name"], u["password"], u["seen_questions"], u["weakest_topics"])
+                user = User(u["name"], u["password"], u["seen_questions"], u["weakest_topics"], u["quiz_marks"])
+                print(user.__quiz_marks)
                 return user
 
         print(">>> Invalid Username or Password <<<")
@@ -132,8 +173,11 @@ class User:
     def get_weakest_topics(self):
         return self.__weakest_topics
     
+    def set_weakest_topics(self, weakest_topics):
+        self.__weakest_topics = {weakest_topics}
+    
     def get_completed_topics(self):
         return self.__completed_topics
 
-    def get_average_score_per_quiz(self):
-        return self.__average_score_per_quiz
+    def get_average_marks_per_quiz(self):
+        return self.__average_marks_per_quiz

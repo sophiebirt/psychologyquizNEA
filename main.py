@@ -10,7 +10,8 @@ import json
 import random
 
 # Static
-ACCOUNT_DATA = "Account\student_data.json" # this may vary depending on machine and dev environment 
+ACCOUNT_DATA = "psychologyquizNEA\Account\student_data.json" # this may vary depending on machine and dev environment 
+
 
 
 class QuizApp():
@@ -89,7 +90,7 @@ class QuizApp():
         weakest_topics = self.__user.get_weakest_topics()
         questions_completed = self.__user.get_questions_completed()
         completed_topics = self.__user.get_completed_topics()
-        average_score_per_quiz = self.__user.get_average_score_per_quiz()
+        average_marks_per_quiz = self.__user.get_average_marks_per_quiz()
     
 
         # Title Label
@@ -109,8 +110,8 @@ class QuizApp():
         self.completed_topics_label.pack(pady=10)
 
         # Average score per quiz 
-        self.average_score_per_quiz_label = ctk.CTkLabel(self.__window, text=f"Average score per quiz: {average_score_per_quiz}", font=("Arial", 16))
-        self.average_score_per_quiz_label.pack(pady=10)
+        self.average_marks_per_quiz_label = ctk.CTkLabel(self.__window, text=f"Average marks per quiz: {average_marks_per_quiz}", font=("Arial", 16))
+        self.average_marks_per_quiz_label.pack(pady=10)
 
 
         # Start Quiz Button
@@ -131,27 +132,68 @@ class QuizApp():
             question_chunk.append(question_to_be_added)
 
         return question_chunk
+    
+    def ask_question(self, index):
+        """Displays questions one at a time and waits for completion before moving to the next."""
+        if index < len(self.__question_chunk):  # Ensure there are questions left
+            question = self.__question_chunk[index]
+            
+            # Define a callback function to run when the question is answered
+            def on_question_complete(correct, topic):
+                if correct:
+                    self.__total_correct += 1
+                    self.__total_quiz_marks += question.get_marks()
+                else:
+                    self.__failed_topics.append(topic)
+                
+                # Move to the next question
+                self.ask_question(index + 1)
+            
+            # Display the question and pass the callback
+            question.display_question_page(
+                quiz_object_window=self.__window, 
+                current_question_number=index + 1, 
+                total_number_of_questions=len(self.__question_chunk),
+                callback=on_question_complete  # Pass callback function
+            )
+        else:
+            self.finish_quiz()  # If all questions are done, show results
+    
+    
 
     def run_quiz_chunk(self):
         print("=== STARTED QUIZ CHUNK ===")
-        print(self.__all_questions)
-
-        question_chunk = self.create_question_chunk()
-
-        first_question = question_chunk[0]
-        second_question = question_chunk[1]
-        
-        # TODO 
-        # Display question page should end up calling itself, passing the question chunk as a paramter and finishing when all question are done, and it should output
-        # total correct int, total incorrect int, topics failed, 
-        # SOPHIE -> code display_question_page, for the second question which is a multiple choice 
-
-        first_question.display_question_page(quiz_object_window=self.__window, current_question_number=1, total_number_of_questions=10)
-        second_question.display_question_page(quiz_object_window=self.__window, current_question_number=2, total_number_of_questions=10)
-
-        # update user stats
-
     
+        self.__question_chunk = self.create_question_chunk()  # Store all questions
+        self.__total_correct = 0  # Track correct answers
+        self.__failed_topics = []  # Track failed topics
+        self.__total_quiz_marks = 0
+        
+        
+        self.ask_question(0)  # Start with the first question
+    
+    def finish_quiz(self):
+        """Displays quiz results after all questions are answered"""
+        for widget in self.__window.winfo_children():
+            widget.destroy()
+
+        ctk.CTkLabel(self.__window, text="Quiz Completed!", font=("Arial", 20)).pack(pady=20)
+        ctk.CTkLabel(self.__window, text=f"Total Correct: {self.__total_correct}", font=("Arial", 16)).pack(pady=10)
+        ctk.CTkLabel(self.__window, text=f"Topics Failed: {', '.join(self.__failed_topics) if self.__failed_topics else 'None'}", font=("Arial", 16)).pack(pady=10)
+
+        ## Also show total marks / total potential marks
+        
+        # Update user stats
+        self.__user.increment_weakest_topics(self.__failed_topics)
+        self.__user.increase_questions_completed(len(self.__question_chunk))
+        self.__user.update_quiz_marks(self.__total_quiz_marks)
+
+        # TODO: add self.__user.update_new_average_quiz_score()
+
+        self.__user.update_user_stats(ACCOUNT_DATA)
+
+
+        
 
 
         

@@ -33,6 +33,13 @@
         "name": "test",
         "password": "test",
         "seen_questions": [],
-        "weakest_topics": []
+        "weakest_topics": {},
+        "questions_completed": 2,
+        "completed_topics": [],
+        "quiz_marks": [
+            2
+        ],
+        "average_score_per_quiz": null,
+        "average_marks_per_quiz": null
     }
 ]
