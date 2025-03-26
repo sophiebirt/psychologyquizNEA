@@ -21,16 +21,7 @@ class SingleAnswer(Question):
     
     def get_marks(self):
         return super().get_marks()
-    
-    # over simplified 
-    def check_answer(self):
-        print("CHECKING QUESTION !!!")
-        if self.__answer.lower() == self.__correct_answer.lower():
-            return True
-        else:
-            return False
-        
-        
+
     def display_question_page(self, quiz_object_window, current_question_number, total_number_of_questions, callback):
         """Displays a single-answer question page and calls callback when answered"""
         for widget in quiz_object_window.winfo_children():

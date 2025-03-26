@@ -3,16 +3,13 @@ from Classes.Question import Question
 from Classes.SingleAnswer import SingleAnswer
 from Classes.QuestionHandler import QuestionHandler
 
-
 import customtkinter as ctk
 import os
 import json
 import random
 
 # Static
-ACCOUNT_DATA = "psychologyquizNEA\Account\student_data.json" # this may vary depending on machine and dev environment 
-
-
+ACCOUNT_DATA = "Account\student_data.json" # this may vary depending on machine and dev environment 
 
 class QuizApp():
     
@@ -27,13 +24,15 @@ class QuizApp():
         self.__question_handler = QuestionHandler()
         self.__single_answer_qs = self.__question_handler.create_single_answer_question_objects()
         self.__multiple_choice_qs = self.__question_handler.create_multiple_choice_question_objects()
+        self.__extended_answer_qs = self.__question_handler.create_extended_answer_question_objects()
 
         print(f"Lengths - SA: {len(self.__single_answer_qs)}, MC: {len(self.__multiple_choice_qs)}")
 
 
         self.__all_questions = [
             self.__single_answer_qs, 
-            self.__multiple_choice_qs 
+            self.__multiple_choice_qs,
+            self.__extended_answer_qs
         ]
 
         # User Data 
@@ -119,7 +118,6 @@ class QuizApp():
         self.start_button.pack(pady=20)
 
     def create_question_chunk(self):
-        # Get one question of each type
         question_chunk = []
 
         for i in range(len(self.__all_questions)):
@@ -160,7 +158,6 @@ class QuizApp():
             self.finish_quiz()  # If all questions are done, show results
     
     
-
     def run_quiz_chunk(self):
         print("=== STARTED QUIZ CHUNK ===")
     
@@ -227,7 +224,6 @@ class QuizApp():
     def run(self):
         self.__window.mainloop()    
         
-    
 
 if __name__ == "__main__":
     #user = User.create_account("exampleuser200", "examplepassword200")

@@ -24,13 +24,6 @@ class MultipleChoice(Question):
     
     def get_marks(self):
         return super().get_marks()
-    
-    def check_answer(self):
-        if self.__selected_option.get() == self.__correct_answer:
-            print ("Correct")
-            
-        else:
-            print("Incorrect")
 
     def display_question_page(self, quiz_object_window, current_question_number, total_number_of_questions, callback):
         """Displays the unique setup for multiple-choice questions"""

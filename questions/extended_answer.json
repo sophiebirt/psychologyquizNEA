@@ -1,0 +1,17 @@
+{
+    "questionsList": [
+      {
+        "q_id": 5,
+        "question": "Discuss the nature-nurture debate in Psychology [16 marks]",
+        "topic": "General",
+        "TM": "16"
+      },
+      {
+        "q_id": 6,
+        "question": "Discuss the cognitive approach to treating depression [16 marks]",
+        "topic": "General",
+        "TM": "16"
+      }
+      
+    ]
+  }
