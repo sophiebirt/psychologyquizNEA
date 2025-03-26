@@ -66,7 +66,18 @@ class ExtendedAnswer(Question):
         # Find all matches
         print (response)
         print (type(response))
-        self.__chatgpt_mark = int(response[:2]) 
+
+        match = re.search(r"FINALMARK:(\d{1,2})/16", response)
+
+        if match:
+            score = int(match.group(1))  # Extract and convert to integer
+            print(score)  # Output: 12
+        else:
+            print("Score not found")
+
+
+        
+        self.__chatgpt_mark = int(score) 
         print (self.__chatgpt_mark)
 
     def display_question_page(self, quiz_object_window, current_question_number, total_number_of_questions, callback):
@@ -96,9 +107,4 @@ class ExtendedAnswer(Question):
 
         # Submit button that calls `submit_and_continue()`
         ctk.CTkButton(quiz_object_window, text="Submit", command=submit_and_continue).pack(pady=10)
-
-    
-
-        
-
 
