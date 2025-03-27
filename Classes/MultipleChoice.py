@@ -50,10 +50,12 @@ class MultipleChoice(Question):
         selected_answer = self.__selected_option.get()
         is_correct = selected_answer.lower() == self.__correct_answer.lower()
 
+        if is_correct:
+            marks_achieved = self._marks
+        else: marks_achieved = 0
+
         print(f"Selected Answer: {selected_answer}, Correct Answer: {self.__correct_answer}, Result: {is_correct}")
 
         # Call the callback function to proceed to the next question
-        callback(is_correct, self._topic)
-
-
+        callback(marks_achieved, self._topic)
 

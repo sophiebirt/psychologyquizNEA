@@ -7,12 +7,12 @@ class Question:
         self.__q_id = q_id
         self._topic = topic
         self.__label = label                            # short or long 
-        self.__marks = int(marks)                       # total number of marks for question
+        self._marks = int(marks)                       # total number of marks for question
         self._question = self.insert_newlines(question)
 
          
     def get_marks(self): 
-        return self.__marks
+        return self._marks
     
     @staticmethod
     def insert_newlines(text, line_length=20):

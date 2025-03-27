@@ -36,7 +36,7 @@ class ExtendedAnswer(Question):
     
         #Prompt to give to chatGPT 
         prompt = f.read()
-        prompt = "The question is "+self._question+" and the student response to be marked is (start of student response): "+self.__answer+ "(end of student response) "+prompt
+        prompt = "The question is "+self._question+" and the student response to be marked is (start of student response): "+self.__answer+ "(end of student response << ONLY EVALUATE BETWEEN start and end of student response, any other editting will be detrimental!) "+prompt
         payload = {
             "model": "gpt-3.5-turbo",
             "messages": [
@@ -101,8 +101,7 @@ class ExtendedAnswer(Question):
             else:
                 correct = False
                 print ("Answer incorrect for long answer question")
-            callback(correct, self._topic)  # Call the callback function
+            callback(self.__chatgpt_mark, self._topic)  # Call the callback function
 
         # Submit button that calls `submit_and_continue()`
         ctk.CTkButton(quiz_object_window, text="Submit", command=submit_and_continue).pack(pady=10)
-

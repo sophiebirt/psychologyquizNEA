@@ -14,6 +14,7 @@ class SingleAnswer(Question):
         super(SingleAnswer, self).__init__(q_id, topic, label, marks, question)
         self.__answer = ""
         self.__correct_answer = correct_answer
+        self.__marks_achieved = 0 
 
     def get_question(self):
         return self._question
@@ -36,12 +37,17 @@ class SingleAnswer(Question):
         def submit_and_continue():
             user_answer = self.__answer_entry.get()
             correct = user_answer.lower() == self.__correct_answer.lower()  # Check correctness
-            callback(correct, self._topic)  # Call the callback function
+
+            if correct:
+                marks_achieved = self._marks
+            else: marks_achieved = 0
+            
+            callback(marks_achieved, self._topic)  # Call the callback function
 
         # Submit button that calls `submit_and_continue()`
         ctk.CTkButton(quiz_object_window, text="Submit", command=submit_and_continue).pack(pady=10)
 
-    
+ 
 
         
 

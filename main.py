@@ -2,6 +2,9 @@ from Classes.User import User
 from Classes.Question import Question
 from Classes.SingleAnswer import SingleAnswer
 from Classes.QuestionHandler import QuestionHandler
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
 
 import customtkinter as ctk
 import os
@@ -40,6 +43,22 @@ class QuizApp():
         self.__user = None # this is a user object 
 
         self.create_login_page()
+
+    def create_pie_chart(self, data):
+        """Creates a pie chart from a dictionary and embeds it in the Tkinter window."""
+        if not data:
+            return  # No data to plot
+
+        # Extract labels and values
+        labels = list(data.keys())
+        sizes = list(data.values())
+
+        # Create Matplotlib Figure
+        fig = Figure(figsize=(4, 4))
+        ax = fig.add_subplot(111)
+        ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
+
+        return fig
 
     def create_login_page(self):
         """Creates the login page UI."""
@@ -99,7 +118,17 @@ class QuizApp():
         # Weakest Topics
         self.weak_label = ctk.CTkLabel(self.__window, text=f"Weakest Topics: {weakest_topics}", font=("Arial", 16))
         self.weak_label.pack(pady=10)
-        
+
+        # Pie Chart - Show Weakest Topics
+        topic_counts = weakest_topics
+        if topic_counts:
+            fig = self.create_pie_chart(topic_counts)
+            if fig:
+                canvas = FigureCanvasTkAgg(fig, master=self.__window)
+                canvas.get_tk_widget().pack(pady=10)
+                canvas.draw()
+
+
         # Total Questions Completed
         self.total_label = ctk.CTkLabel(self.__window, text=f"Total Questions Completed: {questions_completed}", font=("Arial", 16))
         self.total_label.pack(pady=10)
@@ -134,14 +163,21 @@ class QuizApp():
             question = self._question_chunk[index]
             
             # Define a callback function to run when the question is answered
-            def on_question_complete(correct, topic):
+            def on_question_complete(marks_achieved, topic):
+                correct = marks_achieved == question.get_marks()
+
                 self.__total_potential_marks += question.get_marks()
-                print(f"TOTAL POTENTIAL MARKS: {self.__total_potential_marks}")
+                
+                
                 if correct:
                     self.__total_correct += 1
-                    self.__total_quiz_marks += question.get_marks()
+                    self.__total_quiz_marks += marks_achieved # MARKS ACHIEVED does not always equal the amount the question is worth
                 else:
                     self.__failed_topics.append(topic)
+
+                print(f"TOTAL POTENTIAL MARKS: {self.__total_potential_marks}")
+                print(f"TOTAL QUIZ MARKS: {self.__total_quiz_marks}")
+                print(f"QUESTION MARKS ACHIEVED: {marks_achieved}")
                 
                 # Move to the next question
                 self.ask_question(index + 1)
