@@ -34,19 +34,21 @@
         "password": "test",
         "seen_questions": [],
         "weakest_topics": {
-            "Memory": 5,
+            "Memory": 6,
             "General": 6,
-            "Social influence": 7,
+            "Social influence": 8,
             "Issues and debates": 2,
             "Biopsychology": 1
         },
         "questions_completed": 3,
         "completed_topics": [],
-        "quiz_marks": [
+        "quiz_percentages": [
             0
         ],
-        "average_score_per_quiz": null,
-        "average_marks_per_quiz": null,
-        "average_percentage_per_quiz": null
+        "average_percentage_per_quiz": null,
+        "quiz_percnegages": [
+            0,
+            5
+        ]
     }
 ]

@@ -109,7 +109,7 @@ class QuizApp():
         weakest_topics = self.__user.get_weakest_topics()
         questions_completed = self.__user.get_questions_completed()
         
-        average_percentage_per_quiz = self.__user.get_average_percentage_per_quiz()
+        average_percentage_per_quiz = self.__user.get_quiz_percentages()
 
         # Title Label
         self.title_label = ctk.CTkLabel(self.__window, text="Welcome to Your Quiz Dashboard!", font=("Arial", 20, "bold", "underline"))
@@ -223,9 +223,7 @@ class QuizApp():
         # Update user stats
         self.__user.increment_weakest_topics(self.__failed_topics)
         self.__user.increase_questions_completed(len(self._question_chunk))
-        self.__user.update_quiz_marks(self.__total_quiz_marks)
-
-        # TODO: add self.__user.update_new_average_percentage()
+        self.__user.update_quiz_percentages(quiz_chunk_percentage)
         self.__user.update_user_stats(ACCOUNT_DATA)
 
         self.start_button = ctk.CTkButton(self.__window, text="Back To Homepage", command=self.create_quiz_dashboard)

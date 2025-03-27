@@ -6,7 +6,7 @@ import os
 # -> check user does not already exist
 
 class User:
-    def __init__(self, name, password, seen_questions= None, weakest_topics = None, quiz_marks = None):
+    def __init__(self, name, password, seen_questions= None, weakest_topics = None, quiz_percentages = None):
         self.__name = name
         self.__password = password
 
@@ -19,8 +19,8 @@ class User:
         self.__seen_questions = seen_questions
         self.__weakest_topics = weakest_topics
         
-        self.__quiz_marks = [] ## UHHH WHAT CHANGE THIS POTENTIALL NOT REALLY SURE WHAT THIS IS FOR TBH 
-        self.__average_percentage_per_quiz = None
+        self.__quiz_percentages = quiz_percentages
+        
         
 
     def to_dict(self):
@@ -75,8 +75,7 @@ class User:
                 user["seen_questions"] = self.__seen_questions
                 user["weakest_topics"] = self.__weakest_topics
                 user["questions_completed"] = self._questions_completed
-                user["quiz_marks"] = self.__quiz_marks
-                user["average_percentage_per_quiz"] = self.__average_percentage_per_quiz
+                user["quiz_percnegages"] = self.__quiz_percentages
                 user_found = True
                 break
 
@@ -93,8 +92,8 @@ class User:
     def increase_questions_completed(self, number_of_completed_questions):
         self._questions_completed = self._questions_completed + number_of_completed_questions
 
-    def update_quiz_marks(self, new_quiz_marks):
-        self.__quiz_marks.append(new_quiz_marks)
+    def update_quiz_percentages(self, new_quiz_percentage):
+        self.__quiz_percentages.append(new_quiz_percentage)
 
     def increment_weakest_topics(self, failed_topics):
 
@@ -155,9 +154,9 @@ class User:
         for u in data:
             if u["name"] == name and u["password"] == password:
                 print(">>> Login Successful <<<")
-                user = User(u["name"], u["password"], u["seen_questions"], u["weakest_topics"], u["quiz_marks"])
+                user = User(u["name"], u["password"], u["seen_questions"], u["weakest_topics"], u["quiz_percentages"])
                 print(f"WEAKEST TOPICS !!!!")
-                print(user.__quiz_marks)
+                print(user.__quiz_percentages)
                 return user
 
         print(">>> Invalid Username or Password <<<")
@@ -174,10 +173,8 @@ class User:
     def get_weakest_topics(self):
         return self.__weakest_topics
     
- 
-
-    def get_average_percentage_per_quiz(self):
-        return self.__average_percentage_per_quiz
+    def get_quiz_percentages(self):
+        return self.__quiz_percentages
     
 
     ## SETTER METHODS 
