@@ -1,27 +1,59 @@
 {
     "questionsList": [
       {
-        "q_id": 3,
-        "question": "What animal eats bamboo?",
+        "q_id": 0,
+        "question": "Which one of the following is most associated with informational social influence? [1 mark]",
         "topic": "General",
         "TM": "1",
-        "correct_answer": "panda",
-        "answer_option_1": "fish",
-        "answer_option_2": "panda",
-        "answer_option_3": "cheetah",
-        "answer_option_4": "flamingo"
+        "correct_answer": "It is more likely to lead to a permanent, rather than temporary, change in attitude.",
+        "answer_option_1": "It is based on a desire to be liked, rather than a desire to be right",
+        "answer_option_2": "It is an emotional, rahter than cognitive, process",
+        "answer_option_3": "It is more likely to lead to a permanent, rather than temporary, change in attitude.",
+        "answer_option_4": "It occurs in unambiguous situations, rather than those where there is no obvious answer"
       },
       {
-        "q_id": 4,
-        "question": "What is the male mouse mascot from Disney called?",
-        "topic": "General",
+        "q_id": 0,
+        "question": "Which of the following neurons carries electrical impulses towards the brain? [1 mark]",
+        "topic": "Biopsychology",
         "TM": "1",
-        "correct_answer": "mickey",
-        "answer_option_1": "ricky",
-        "answer_option_2": "bartholomew",
-        "answer_option_3": "mickey",
-        "answer_option_4": "evangeline"
+        "correct_answer": "Sensory neuron",
+        "answer_option_1": "Interneuron",
+        "answer_option_2": "Motor neuron",
+        "answer_option_3": "Relay neuron",
+        "answer_option_4": "Sensory neuron"
+      },
+      {
+        "q_id": 0,
+        "question": "Which of the following is NOT a way of studying the brain [1 mark]",
+        "topic": "Biopsychology",
+        "TM": "1",
+        "correct_answer": "Electrocardiogram (ECG)",
+        "answer_option_1": "Electrocardiogram (ECG)",
+        "answer_option_2": "Electroencephalogram (EEG)",
+        "answer_option_3": "Event-related potentials (ERPs)",
+        "answer_option_4": "Functional magnetic resonance imaging (fMRI)"
+      },
+      {
+        "q_id": 0,
+        "question": "Which of the following statements is correct according to the psychodynamic approach? [1 mark]",
+        "topic": "Approaches",
+        "TM": "1",
+        "correct_answer": "The id is part of the unconscious mind",
+        "answer_option_1": "The ego is present at birth",
+        "answer_option_2": "The id is based on the morality principle",
+        "answer_option_3": "The id is part of the unconscious mind",
+        "answer_option_4": "The superego mediates between the demands of the id and ego"
+      },
+      {
+        "q_id": 0,
+        "question": "Which of the following terms best represents the view that biology and environment work together to determine behaviour? [1 mark]",
+        "topic": "Issues and debates",
+        "TM": "1",
+        "correct_answer": "Interactionism",
+        "answer_option_1": "Ethnocentrism",
+        "answer_option_2": "Interactionism",
+        "answer_option_3": "Determinism",
+        "answer_option_4": "Holism"
       }
-      
     ]
   }

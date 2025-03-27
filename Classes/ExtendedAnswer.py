@@ -17,13 +17,12 @@ EXTENDED_ANSWER_PROMPT_FILE = "Classes\prompt.txt"
 
 class ExtendedAnswer(Question):
     def __init__(self, q_id, question, topic, label, marks):
-        super(ExtendedAnswer, self).__init__(q_id, topic, label, marks)
-        self.__question = question
+        super(ExtendedAnswer, self).__init__(q_id, topic, label, marks, question)
         self.__answer = ""
         self.__chatgpt_mark = 0
 
     def get_question(self):
-        return self.__question
+        return self._question
     
     def get_marks(self):
         return super().get_marks()
@@ -37,7 +36,7 @@ class ExtendedAnswer(Question):
     
         #Prompt to give to chatGPT 
         prompt = f.read()
-        prompt = "The question is "+self.__question+" and the student response to be marked is (start of student response): "+self.__answer+ "(end of student response) "+prompt
+        prompt = "The question is "+self._question+" and the student response to be marked is (start of student response): "+self.__answer+ "(end of student response) "+prompt
         payload = {
             "model": "gpt-3.5-turbo",
             "messages": [
@@ -66,8 +65,9 @@ class ExtendedAnswer(Question):
         # Find all matches
         print (response)
         print (type(response))
-
-        match = re.search(r"FINALMARK:(\d{1,2})/16", response)
+        
+        no_spaces_response = response.replace(" ", "")
+        match = re.search(r"FINALMARK:(\d{1,2})/16", no_spaces_response)
 
         if match:
             score = int(match.group(1))  # Extract and convert to integer
@@ -75,8 +75,6 @@ class ExtendedAnswer(Question):
         else:
             print("Score not found")
 
-
-        
         self.__chatgpt_mark = int(score) 
         print (self.__chatgpt_mark)
 
@@ -87,7 +85,7 @@ class ExtendedAnswer(Question):
 
         ctk.CTkLabel(quiz_object_window, text=f"Question {current_question_number} / {total_number_of_questions}", font=("Arial", 18)).pack(pady=10)
         ctk.CTkLabel(quiz_object_window, text=f"Topic: {self._topic}", font=("Arial", 16)).pack(pady=5)
-        ctk.CTkLabel(quiz_object_window, text=self.__question, font=("Arial", 18)).pack(pady=10)
+        ctk.CTkLabel(quiz_object_window, text=self._question, font=("Arial", 18)).pack(pady=10)
 
         self.__answer_entry = ctk.CTkEntry(quiz_object_window, placeholder_text="Your Answer")
         self.__answer_entry.pack(pady=5)

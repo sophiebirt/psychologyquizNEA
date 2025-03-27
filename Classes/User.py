@@ -14,7 +14,7 @@ class User:
         self.__valid_password_length = 8
 
         # Stats Attributes:
-        self.__questions_completed = 0
+        self._questions_completed = 0
 
         self.__seen_questions = []
         self.__weakest_topics = {}
@@ -74,7 +74,7 @@ class User:
             if user["name"] == self.__name:
                 user["seen_questions"] = self.__seen_questions
                 user["weakest_topics"] = self.__weakest_topics
-                user["questions_completed"] = self.__questions_completed
+                user["questions_completed"] = self._questions_completed
                 user["completed_topics"] = self.__completed_topics
                 user["quiz_marks"] = self.__quiz_marks
                 user["average_marks_per_quiz"] = self.__average_marks_per_quiz
@@ -99,7 +99,7 @@ class User:
                 self.__weakest_topics[topic] = 1
             
     def increase_questions_completed(self, number_of_completed_questions):
-        self.__questions_completed = self.__questions_completed + number_of_completed_questions
+        self._questions_completed = self._questions_completed + number_of_completed_questions
 
     def update_quiz_marks(self, new_quiz_marks):
         self.__quiz_marks.append(new_quiz_marks)
@@ -168,7 +168,7 @@ class User:
         return self.__name
 
     def get_questions_completed(self):
-        return self.__questions_completed
+        return self._questions_completed
     
     def get_weakest_topics(self):
         return self.__weakest_topics

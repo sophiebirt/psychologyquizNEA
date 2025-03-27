@@ -13,14 +13,13 @@ Multiple Choice Question Subclass
 
 class MultipleChoice(Question):
     def __init__(self, q_id, question, topic, label, marks, correct_answer, answer_options):
-        super(MultipleChoice, self).__init__(q_id, topic, label, marks)
-        self.__question = question
+        super(MultipleChoice, self).__init__(q_id, topic, label, marks, question)
         self.__answer = ""
         self.__correct_answer = correct_answer
         self.__answer_options = answer_options
         
     def get_question(self):
-        return self.__question
+        return self._question
     
     def get_marks(self):
         return super().get_marks()
@@ -32,7 +31,7 @@ class MultipleChoice(Question):
 
         ctk.CTkLabel(quiz_object_window, text=f"Multiple Choice Question - Topic: {self._topic}", font=("Arial", 18)).pack(pady=10)
         ctk.CTkLabel(quiz_object_window, text=f"{current_question_number} / {total_number_of_questions}", font=("Arial", 10)).pack(pady=5)
-        ctk.CTkLabel(quiz_object_window, text=self.__question, font=("Arial", 18)).pack(pady=10)
+        ctk.CTkLabel(quiz_object_window, text=self._question, font=("Arial", 18)).pack(pady=10)
         
         # Create a variable to track selected answer
         self.__selected_option = ctk.StringVar(value="None")

@@ -11,13 +11,12 @@ Single Answer Question Subclass
 
 class SingleAnswer(Question):
     def __init__(self, q_id, question, topic, label, marks, correct_answer):
-        super(SingleAnswer, self).__init__(q_id, topic, label, marks)
-        self.__question = question
+        super(SingleAnswer, self).__init__(q_id, topic, label, marks, question)
         self.__answer = ""
         self.__correct_answer = correct_answer
 
     def get_question(self):
-        return self.__question
+        return self._question
     
     def get_marks(self):
         return super().get_marks()
@@ -29,7 +28,7 @@ class SingleAnswer(Question):
 
         ctk.CTkLabel(quiz_object_window, text=f"Question {current_question_number} / {total_number_of_questions}", font=("Arial", 18)).pack(pady=10)
         ctk.CTkLabel(quiz_object_window, text=f"Topic: {self._topic}", font=("Arial", 16)).pack(pady=5)
-        ctk.CTkLabel(quiz_object_window, text=self.__question, font=("Arial", 18)).pack(pady=10)
+        ctk.CTkLabel(quiz_object_window, text=self._question, font=("Arial", 18)).pack(pady=10)
 
         self.__answer_entry = ctk.CTkEntry(quiz_object_window, placeholder_text="Your Answer")
         self.__answer_entry.pack(pady=5)

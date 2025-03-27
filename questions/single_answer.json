@@ -2,18 +2,53 @@
     "questionsList": [
       {
         "q_id": 1,
-        "question": "What is the first letter of the Alphabet [2 marks]",
-        "topic": "General",
+        "question": "What type of long term memory is stored with reference to contextual information, eg time and place",
+        "topic": "Memory",
         "TM": "1",
-        "correct_answer": "a"
+        "correct_answer": "Episodic"
       },
       {
         "q_id": 2,
-        "question": "What is the colour of the sky [2 marks]",
-        "topic": "General",
-        "TM": "2",
-        "correct_answer": "blue"
+        "question": "What type of long term memory is difficult to describe in words",
+        "topic": "Memory",
+        "TM": "1",
+        "correct_answer": "Procedural"
+      },
+      {
+        "q_id": 2,
+        "question": "What type of long term memory is associated with knowing the meaning of a word",
+        "topic": "Memory",
+        "TM": "1",
+        "correct_answer": "Semantic"
+      },
+      {
+        "q_id": 2,
+        "question": "Which factor affecting minority influence is illustrated by the following example: Members of a religious group give up their Saturday mornings to distribute leaflets about the importance of worship.",
+        "topic": "Social influence",
+        "TM": "1",
+        "correct_answer": "Commitment"
+      },
+      {
+        "q_id": 2,
+        "question": "Which factor affecting minority influence is illustrated by the following example: An environmental group acknowledges that recycling can be time-consuming while emphasising its importance for the future of the planet.",
+        "topic": "Social influence",
+        "TM": "1",
+        "correct_answer": "Flexibility"
+      },
+      {
+        "q_id": 2,
+        "question": "Which factor affecting minority influence is illustrated by the following example: All of the members of the ‘Flat Earth Society’ agree that the Earth is flat and not round. ",
+        "topic": "Social influence",
+        "TM": "1",
+        "correct_answer": "Consistency"
+      },
+      {
+        "q_id": 2,
+        "question": "Which factor affecting minority influence is illustrated by the following example: All of the members of the ‘Flat Earth Society’ agree that the Earth is flat and not round. ",
+        "topic": "Social influence",
+        "TM": "1",
+        "correct_answer": "Consistency"
       }
-      
+    
     ]
   }

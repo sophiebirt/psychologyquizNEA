@@ -21,10 +21,10 @@ class QuizApp():
         self.__window.geometry("600x400")
 
         # Question Data 
-        self.__question_handler = QuestionHandler()
-        self.__single_answer_qs = self.__question_handler.create_single_answer_question_objects()
-        self.__multiple_choice_qs = self.__question_handler.create_multiple_choice_question_objects()
-        self.__extended_answer_qs = self.__question_handler.create_extended_answer_question_objects()
+        self._question_handler = QuestionHandler()
+        self.__single_answer_qs = self._question_handler.create_single_answer_question_objects()
+        self.__multiple_choice_qs = self._question_handler.create_multiple_choice_question_objects()
+        self.__extended_answer_qs = self._question_handler.create_extended_answer_question_objects()
 
         print(f"Lengths - SA: {len(self.__single_answer_qs)}, MC: {len(self.__multiple_choice_qs)}")
 
@@ -133,8 +133,8 @@ class QuizApp():
     
     def ask_question(self, index):
         """Displays questions one at a time and waits for completion before moving to the next."""
-        if index < len(self.__question_chunk):  # Ensure there are questions left
-            question = self.__question_chunk[index]
+        if index < len(self._question_chunk):  # Ensure there are questions left
+            question = self._question_chunk[index]
             
             # Define a callback function to run when the question is answered
             def on_question_complete(correct, topic):
@@ -151,7 +151,7 @@ class QuizApp():
             question.display_question_page(
                 quiz_object_window=self.__window, 
                 current_question_number=index + 1, 
-                total_number_of_questions=len(self.__question_chunk),
+                total_number_of_questions=len(self._question_chunk),
                 callback=on_question_complete  # Pass callback function
             )
         else:
@@ -161,7 +161,7 @@ class QuizApp():
     def run_quiz_chunk(self):
         print("=== STARTED QUIZ CHUNK ===")
     
-        self.__question_chunk = self.create_question_chunk()  # Store all questions
+        self._question_chunk = self.create_question_chunk()  # Store all questions
         self.__total_correct = 0  # Track correct answers
         self.__failed_topics = []  # Track failed topics
         self.__total_quiz_marks = 0
@@ -182,7 +182,7 @@ class QuizApp():
         
         # Update user stats
         self.__user.increment_weakest_topics(self.__failed_topics)
-        self.__user.increase_questions_completed(len(self.__question_chunk))
+        self.__user.increase_questions_completed(len(self._question_chunk))
         self.__user.update_quiz_marks(self.__total_quiz_marks)
 
         # TODO: add self.__user.update_new_average_quiz_score()

@@ -1,17 +1,64 @@
 {
     "questionsList": [
       {
-        "q_id": 5,
+        "q_id": 0,
         "question": "Discuss the nature-nurture debate in Psychology [16 marks]",
-        "topic": "General",
+        "topic": "Issues and Debates",
         "TM": "16"
       },
       {
-        "q_id": 6,
+        "q_id": 0,
         "question": "Discuss the cognitive approach to treating depression [16 marks]",
-        "topic": "General",
+        "topic": "Psychopathology",
+        "TM": "16"
+      },
+      {
+        "q_id": 0,
+        "question": "Discuss research into the influence of early attachment on childhood and/or adult relationships. [16 marks]",
+        "topic": "Attachment",
+        "TM": "16"
+      },
+      {
+        "q_id": 0,
+        "question": "Discuss research into caregiver-infant interactions in humans. [16 marks]",
+        "topic": "Attachment",
+        "TM": "16"
+      },
+      {
+        "q_id": 0,
+        "question": "Describe how situational variables have been found to affect obedience. Discuss what box these situational variables tell us about why we obey. [16 marks]",
+        "topic": "Social influence",
+        "TM": "16"
+      },
+      {
+        "q_id": 0,
+        "question": "Outline Lorenz’s and Harlow’s animal studies of attachment. Discuss what these studies might tell us about human attachment. [16 marks]",
+        "topic": "Attachment",
+        "TM": "16"
+      },
+      {
+        "q_id": 0,
+        "question": "Discuss research into minority influence. [16 marks]",
+        "topic": "Social influence",
+        "TM": "16"
+      },
+      {
+        "q_id": 0,
+        "question": "Discuss research into the effects of anxiety on the accuracy of eyewitness testimony [16 marks]",
+        "topic": "Memory",
+        "TM": "16"
+      },
+      {
+        "q_id": 0,
+        "question": "Discuss ways of studying the brain. [16 marks]",
+        "topic": "Memory",
+        "TM": "16"
+      },
+      {
+        "q_id": 0,
+        "question": "Discuss localisation of function in the brain. [16 marks]",
+        "topic": "Biopsychology",
         "TM": "16"
       }
-      
     ]
   }
