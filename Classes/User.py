@@ -16,11 +16,11 @@ class User:
         # Stats Attributes:
         self._questions_completed = 0
 
-        self.__seen_questions = []
-        self.__weakest_topics = {}
-        self.__completed_topics = [] 
-        self.__quiz_marks = []
-        self.__average_marks_per_quiz = None
+        self.__seen_questions = seen_questions
+        self.__weakest_topics = weakest_topics
+        
+        self.__quiz_marks = [] ## UHHH WHAT CHANGE THIS POTENTIALL NOT REALLY SURE WHAT THIS IS FOR TBH 
+        self.__average_percentage_per_quiz = None
         
 
     def to_dict(self):
@@ -75,9 +75,8 @@ class User:
                 user["seen_questions"] = self.__seen_questions
                 user["weakest_topics"] = self.__weakest_topics
                 user["questions_completed"] = self._questions_completed
-                user["completed_topics"] = self.__completed_topics
                 user["quiz_marks"] = self.__quiz_marks
-                user["average_marks_per_quiz"] = self.__average_marks_per_quiz
+                user["average_percentage_per_quiz"] = self.__average_percentage_per_quiz
                 user_found = True
                 break
 
@@ -90,19 +89,22 @@ class User:
             json.dump(users, file, indent=4)
 
         print(">>> User statistics updated successfully! <<<")
-    
-    def increment_weakest_topics(self, list_of_failed_topics):
-        for topic in list_of_failed_topics:
-            try: 
-                self.__weakest_topics[topic] += 1 
-            except:
-                self.__weakest_topics[topic] = 1
             
     def increase_questions_completed(self, number_of_completed_questions):
         self._questions_completed = self._questions_completed + number_of_completed_questions
 
     def update_quiz_marks(self, new_quiz_marks):
         self.__quiz_marks.append(new_quiz_marks)
+
+    def increment_weakest_topics(self, failed_topics):
+
+        for topic in failed_topics:
+            # If the topic has not been failed yet, add new topic 
+            if topic not in self.__weakest_topics:
+                self.__weakest_topics[topic] = 1
+            # If the topic has been failed already, increment
+            elif topic in self.__weakest_topics:
+                self.__weakest_topics[topic] = self.__weakest_topics[topic] + 1
     
 
     @staticmethod
@@ -147,8 +149,6 @@ class User:
         else:
             return None
     
-        
-
         # Linear search (this can and should be improved later with hashing)
 
         print(data)
@@ -156,13 +156,14 @@ class User:
             if u["name"] == name and u["password"] == password:
                 print(">>> Login Successful <<<")
                 user = User(u["name"], u["password"], u["seen_questions"], u["weakest_topics"], u["quiz_marks"])
+                print(f"WEAKEST TOPICS !!!!")
                 print(user.__quiz_marks)
                 return user
 
         print(">>> Invalid Username or Password <<<")
         return None
     
-    ## GETTER AND SETTER METHODS
+    ## GETTER METHODS 
 
     def get_name(self):
         return self.__name
@@ -173,11 +174,12 @@ class User:
     def get_weakest_topics(self):
         return self.__weakest_topics
     
-    def set_weakest_topics(self, weakest_topics):
-        self.__weakest_topics = {weakest_topics}
-    
-    def get_completed_topics(self):
-        return self.__completed_topics
+ 
 
-    def get_average_marks_per_quiz(self):
-        return self.__average_marks_per_quiz
+    def get_average_percentage_per_quiz(self):
+        return self.__average_percentage_per_quiz
+    
+
+    ## SETTER METHODS 
+
+  

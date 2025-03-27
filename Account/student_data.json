@@ -27,21 +27,25 @@
         "name": "testing",
         "password": "testingtesting123!",
         "seen_questions": [],
-        "weakest_topics": []
+        "weakest_topics": {}
     },
     {
         "name": "test",
         "password": "test",
         "seen_questions": [],
         "weakest_topics": {
-            "Social influence": 1
+            "Memory": 4,
+            "General": 5,
+            "Social influence": 4,
+            "Issues and debates": 2
         },
         "questions_completed": 3,
         "completed_topics": [],
         "quiz_marks": [
-            17
+            16
         ],
         "average_score_per_quiz": null,
-        "average_marks_per_quiz": null
+        "average_marks_per_quiz": null,
+        "average_percentage_per_quiz": null
     }
 ]

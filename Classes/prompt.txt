@@ -68,7 +68,7 @@ Feedback Format:
 Provide a structured response with clear feedback on each PEEL criterion. Use direct quotes from the student’s response in quotation marks to justify marks. Highlight strengths and areas for improvement.
 
 At the end of the feedback, include a final mark in this exact format so that it can be extracted by regular expression, do not add any extra spaces:
-"FINALMARK:xx/16" (where xx is the total score to FINALMARK do not add any extra spaces
+"FINALMARK:xx/16"where xx is the total score to FINALMARK do not add any extra spaces
 . 
 If a response is gibberish, empty, or completely irrelevant, give:
 "FINALMARK:0/16"

@@ -7,6 +7,7 @@ import customtkinter as ctk
 import os
 import json
 import random
+import math 
 
 # Static
 ACCOUNT_DATA = "Account\student_data.json" # this may vary depending on machine and dev environment 
@@ -88,9 +89,8 @@ class QuizApp():
 
         weakest_topics = self.__user.get_weakest_topics()
         questions_completed = self.__user.get_questions_completed()
-        completed_topics = self.__user.get_completed_topics()
-        average_marks_per_quiz = self.__user.get_average_marks_per_quiz()
-    
+        
+        average_percentage_per_quiz = self.__user.get_average_percentage_per_quiz()
 
         # Title Label
         self.title_label = ctk.CTkLabel(self.__window, text="Welcome to Your Quiz Dashboard!", font=("Arial", 20, "bold", "underline"))
@@ -104,14 +104,11 @@ class QuizApp():
         self.total_label = ctk.CTkLabel(self.__window, text=f"Total Questions Completed: {questions_completed}", font=("Arial", 16))
         self.total_label.pack(pady=10)
         
-        # Total topics completed
-        self.completed_topics_label = ctk.CTkLabel(self.__window, text=f"Total Topics Completed: {completed_topics}", font=("Arial", 16))
-        self.completed_topics_label.pack(pady=10)
+        # TODO AVERAGE QUIZ PERCENTAGE
 
         # Average score per quiz 
-        self.average_marks_per_quiz_label = ctk.CTkLabel(self.__window, text=f"Average marks per quiz: {average_marks_per_quiz}", font=("Arial", 16))
+        self.average_marks_per_quiz_label = ctk.CTkLabel(self.__window, text=f"Average marks per quiz: {average_percentage_per_quiz}", font=("Arial", 16))
         self.average_marks_per_quiz_label.pack(pady=10)
-
 
         # Start Quiz Button
         self.start_button = ctk.CTkButton(self.__window, text="Start Quiz", command=self.run_quiz_chunk)
@@ -138,6 +135,8 @@ class QuizApp():
             
             # Define a callback function to run when the question is answered
             def on_question_complete(correct, topic):
+                self.__total_potential_marks += question.get_marks()
+                print(f"TOTAL POTENTIAL MARKS: {self.__total_potential_marks}")
                 if correct:
                     self.__total_correct += 1
                     self.__total_quiz_marks += question.get_marks()
@@ -162,10 +161,10 @@ class QuizApp():
         print("=== STARTED QUIZ CHUNK ===")
     
         self._question_chunk = self.create_question_chunk()  # Store all questions
-        self.__total_correct = 0  # Track correct answers
-        self.__failed_topics = []  # Track failed topics
-        self.__total_quiz_marks = 0
-        
+        self.__total_correct = 0            # Track correct answers (1 for each question)
+        self.__failed_topics = []           # Track failed topics
+        self.__total_quiz_marks = 0         # Track the total marks that are achieved
+        self.__total_potential_marks = 0    # Track the total marks that could be achieved
         
         self.ask_question(0)  # Start with the first question
     
@@ -174,26 +173,28 @@ class QuizApp():
         for widget in self.__window.winfo_children():
             widget.destroy()
 
+        print(f"TOTAL QUIZ MARKS ACHIEVED: {self.__total_quiz_marks}")
+        print(f"TOTAL POTENTIAL MARKS: {self.__total_potential_marks}")
+
+        quiz_chunk_percentage = int(self.__total_quiz_marks/self.__total_potential_marks * 100)
+
         ctk.CTkLabel(self.__window, text="Quiz Completed!", font=("Arial", 20)).pack(pady=20)
         ctk.CTkLabel(self.__window, text=f"Total Correct: {self.__total_correct}", font=("Arial", 16)).pack(pady=10)
+        ctk.CTkLabel(self.__window, text=f"Quiz Percentage Achieved: {quiz_chunk_percentage}", font=("Arial", 16)).pack(pady=10)
         ctk.CTkLabel(self.__window, text=f"Topics Failed: {', '.join(self.__failed_topics) if self.__failed_topics else 'None'}", font=("Arial", 16)).pack(pady=10)
-
-        ## Also show total marks / total potential marks
+       
         
         # Update user stats
         self.__user.increment_weakest_topics(self.__failed_topics)
         self.__user.increase_questions_completed(len(self._question_chunk))
         self.__user.update_quiz_marks(self.__total_quiz_marks)
 
-        # TODO: add self.__user.update_new_average_quiz_score()
-
+        # TODO: add self.__user.update_new_average_percentage()
         self.__user.update_user_stats(ACCOUNT_DATA)
 
+        self.start_button = ctk.CTkButton(self.__window, text="Back To Homepage", command=self.create_quiz_dashboard)
+        self.start_button.pack(pady=20)
 
-        
-
-
-        
     def login(self):
         username = self.__username_entry.get()
         password = self.__password_entry.get()
