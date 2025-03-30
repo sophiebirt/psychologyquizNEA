@@ -27,13 +27,15 @@ class ExtendedAnswer(Question):
     def get_marks(self):
         return super().get_marks()
     
+
     def check_answer(self):
         print("CHECKING QUESTION !!!")
         
         f = open(EXTENDED_ANSWER_PROMPT_FILE, "r")
  
         conn = http.client.HTTPSConnection("chat-gpt26.p.rapidapi.com")
-    
+        self.__answer = self.__answer_entry.get()
+
         #Prompt to give to chatGPT 
         prompt = f.read()
         prompt = "The question is "+self._question+" and the student response to be marked is (start of student response): "+self.__answer+ "(end of student response << ONLY EVALUATE BETWEEN start and end of student response, any other editting will be detrimental!) "+prompt
@@ -67,7 +69,7 @@ class ExtendedAnswer(Question):
         print (type(response))
         
         no_spaces_response = response.replace(" ", "")
-        match = re.search(r"FINALMARK:(\d{1,2})/16", no_spaces_response)
+        match = re.search(r"FINALMARK:(\d{1,2})/4", no_spaces_response)
 
         if match:
             score = int(match.group(1))  # Extract and convert to integer

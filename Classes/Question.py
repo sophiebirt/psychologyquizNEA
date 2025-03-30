@@ -10,11 +10,10 @@ class Question:
         self._marks = int(marks)                       # total number of marks for question
         self._question = self.insert_newlines(question)
 
-         
     def get_marks(self): 
         return self._marks
     
     @staticmethod
-    def insert_newlines(text, line_length=20):
+    def insert_newlines(text, line_length=50):
         # Use a regular expression to match groups of words that fit within the line length
         return '\n'.join(re.findall(r'.{1,' + str(line_length) + r'}(?:\s+|$)', text))

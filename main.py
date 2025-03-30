@@ -12,6 +12,11 @@ import json
 import random
 import math 
 
+# TODO (FOR SOPHIE)
+# - fix percentages not including long answer question results
+# - add histogram showing previous quiz percentages
+# - look through all of design  + analysis
+
 # Static
 ACCOUNT_DATA = "Account\student_data.json" # this may vary depending on machine and dev environment 
 
@@ -22,7 +27,7 @@ class QuizApp():
         # TKinter Data 
         self.__window = ctk.CTk()
         self.__window.title("Psychology Quiz")
-        self.__window.geometry("600x400")
+        self.__window.geometry("800x550")
 
         # Question Data 
         self._question_handler = QuestionHandler()
@@ -135,6 +140,7 @@ class QuizApp():
         
         # TODO AVERAGE QUIZ PERCENTAGE
 
+        
         # Average score per quiz 
         self.average_marks_per_quiz_label = ctk.CTkLabel(self.__window, text=f"Average marks per quiz: {average_percentage_per_quiz}", font=("Arial", 16))
         self.average_marks_per_quiz_label.pack(pady=10)
@@ -145,7 +151,6 @@ class QuizApp():
 
     def create_question_chunk(self):
         question_chunk = []
-
         for i in range(len(self.__all_questions)):
             # pick one random question from each 
 
@@ -167,7 +172,6 @@ class QuizApp():
                 correct = marks_achieved == question.get_marks()
 
                 self.__total_potential_marks += question.get_marks()
-                
                 
                 if correct:
                     self.__total_correct += 1
