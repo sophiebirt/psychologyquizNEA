@@ -2,63 +2,63 @@
     "questionsList": [
       {
         "q_id": 0,
-        "question": "Discuss the nature-nurture debate in Psychology [16 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
+        "question": "Discuss the nature-nurture debate in Psychology [4 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
         "topic": "Issues and Debates",
-        "TM": "16"
+        "TM": "4"
       },
       {
         "q_id": 0,
-        "question": "Discuss the cognitive approach to treating depression [16 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
+        "question": "Discuss the cognitive approach to treating depression [4 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
         "topic": "Psychopathology",
-        "TM": "16"
+        "TM": "4"
       },
       {
         "q_id": 0,
-        "question": "Discuss research into the influence of early attachment on childhood and/or adult relationships. [16 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
+        "question": "Discuss research into the influence of early attachment on childhood and/or adult relationships. [4 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
         "topic": "Attachment",
-        "TM": "16"
+        "TM": "4"
       },
       {
         "q_id": 0,
-        "question": "Discuss research into caregiver-infant interactions in humans. [16 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
+        "question": "Discuss research into caregiver-infant interactions in humans. [4 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
         "topic": "Attachment",
-        "TM": "16"
+        "TM": "4"
       },
       {
         "q_id": 0,
-        "question": "Describe how situational variables have been found to affect obedience. Discuss what box these situational variables tell us about why we obey. [16 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
+        "question": "Describe how situational variables have been found to affect obedience. Discuss what box these situational variables tell us about why we obey. [4 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
         "topic": "Social influence",
-        "TM": "16"
+        "TM": "4"
       },
       {
         "q_id": 0,
-        "question": "Outline Lorenz’s and Harlow’s animal studies of attachment. Discuss what these studies might tell us about human attachment. [16 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
+        "question": "Outline Lorenz’s and Harlow’s animal studies of attachment. Discuss what these studies might tell us about human attachment. [4 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
         "topic": "Attachment",
-        "TM": "16"
+        "TM": "4"
       },
       {
         "q_id": 0,
-        "question": "Discuss research into minority influence. [16 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
+        "question": "Discuss research into minority influence. [4 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
         "topic": "Social influence",
-        "TM": "16"
+        "TM": "4"
       },
       {
         "q_id": 0,
-        "question": "Discuss research into the effects of anxiety on the accuracy of eyewitness testimony [16 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
+        "question": "Discuss research into the effects of anxiety on the accuracy of eyewitness testimony [4 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
         "topic": "Memory",
-        "TM": "16"
+        "TM": "4"
       },
       {
         "q_id": 0,
-        "question": "Discuss ways of studying the brain. [16 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
+        "question": "Discuss ways of studying the brain. [4 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
         "topic": "Memory",
-        "TM": "16"
+        "TM": "4"
       },
       {
         "q_id": 0,
-        "question": "Discuss localisation of function in the brain. [16 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
+        "question": "Discuss localisation of function in the brain. [4 marks]. Write a sample description paragraph to answer this question worth 4 marks total.",
         "topic": "Biopsychology",
-        "TM": "16"
+        "TM": "4"
       }
     ]
   }

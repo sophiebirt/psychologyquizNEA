@@ -75,7 +75,7 @@ class User:
                 user["seen_questions"] = self.__seen_questions
                 user["weakest_topics"] = self.__weakest_topics
                 user["questions_completed"] = self._questions_completed
-                user["quiz_percnegages"] = self.__quiz_percentages
+                user["quiz_percentages"] = self.__quiz_percentages
                 user_found = True
                 break
 
@@ -94,6 +94,7 @@ class User:
 
     def update_quiz_percentages(self, new_quiz_percentage):
         self.__quiz_percentages.append(new_quiz_percentage)
+        print(self.__quiz_percentages)
 
     def increment_weakest_topics(self, failed_topics):
 

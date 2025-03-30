@@ -4,7 +4,8 @@ from Classes.SingleAnswer import SingleAnswer
 from Classes.QuestionHandler import QuestionHandler
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 import customtkinter as ctk
 import os
@@ -27,7 +28,7 @@ class QuizApp():
         # TKinter Data 
         self.__window = ctk.CTk()
         self.__window.title("Psychology Quiz")
-        self.__window.geometry("800x550")
+        self.__window.geometry("1200x1200")
 
         # Question Data 
         self._question_handler = QuestionHandler()
@@ -145,20 +146,38 @@ class QuizApp():
         self.average_marks_per_quiz_label = ctk.CTkLabel(self.__window, text=f"Average marks per quiz: {average_percentage_per_quiz}", font=("Arial", 16))
         self.average_marks_per_quiz_label.pack(pady=10)
 
+        quiz_percentages= self.__user.get_quiz_percentages()
+
+        if quiz_percentages:
+            fig, ax = plt.subplots()
+            ax.plot(range(1, len(quiz_percentages) + 1), quiz_percentages, marker='o', linestyle='-', label="Quiz Scores")
+            ax.set_title("Quiz Score History")
+            ax.set_xlabel("Quiz Number")
+            ax.set_ylabel("Score Percentage")
+            ax.legend()
+            ax.grid(True)
+
+            canvas = FigureCanvasTkAgg(fig, master=self.__window)
+            canvas.get_tk_widget().pack(pady=10)
+            canvas.draw()
+        
+
         # Start Quiz Button
         self.start_button = ctk.CTkButton(self.__window, text="Start Quiz", command=self.run_quiz_chunk)
         self.start_button.pack(pady=20)
 
     def create_question_chunk(self):
         question_chunk = []
-        for i in range(len(self.__all_questions)):
-            # pick one random question from each 
 
-            random_index = random.randint(0, len(self.__all_questions[i]) - 1)
+        for j in range(2):
+            for i in range(len(self.__all_questions)):
+                # pick one random question from each 
 
-            question_to_be_added = self.__all_questions[i][random_index]
-            # TODO update the uses completed question list, check they havent already done it
-            question_chunk.append(question_to_be_added)
+                random_index = random.randint(0, len(self.__all_questions[i]) - 1)
+
+                question_to_be_added = self.__all_questions[i][random_index]
+                # TODO update the uses completed question list, check they havent already done it
+                question_chunk.append(question_to_be_added)
 
         return question_chunk
     
@@ -213,17 +232,18 @@ class QuizApp():
         for widget in self.__window.winfo_children():
             widget.destroy()
 
-        print(f"TOTAL QUIZ MARKS ACHIEVED: {self.__total_quiz_marks}")
-        print(f"TOTAL POTENTIAL MARKS: {self.__total_potential_marks}")
+        quiz_chunk_percentage = round(self.__total_quiz_marks/self.__total_potential_marks * 100, 2)
 
-        quiz_chunk_percentage = int(self.__total_quiz_marks/self.__total_potential_marks * 100)
+        print(f"DEBUGGING ==> End of Quiz")
+        print(f"    TOTAL QUIZ MARKS ACHIEVED:  {self.__total_quiz_marks}")
+        print(f"    TOTAL POTENTIAL MARKS:      {self.__total_potential_marks}")
+        print(f"    QUIZ CHUNK PERCENTAGE:      {quiz_chunk_percentage}")
 
         ctk.CTkLabel(self.__window, text="Quiz Completed!", font=("Arial", 20)).pack(pady=20)
         ctk.CTkLabel(self.__window, text=f"Total Correct: {self.__total_correct}", font=("Arial", 16)).pack(pady=10)
         ctk.CTkLabel(self.__window, text=f"Quiz Percentage Achieved: {quiz_chunk_percentage}", font=("Arial", 16)).pack(pady=10)
         ctk.CTkLabel(self.__window, text=f"Topics Failed: {', '.join(self.__failed_topics) if self.__failed_topics else 'None'}", font=("Arial", 16)).pack(pady=10)
-       
-        
+            
         # Update user stats
         self.__user.increment_weakest_topics(self.__failed_topics)
         self.__user.increase_questions_completed(len(self._question_chunk))

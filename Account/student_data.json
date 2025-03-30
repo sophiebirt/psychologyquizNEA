@@ -34,24 +34,22 @@
         "password": "test",
         "seen_questions": [],
         "weakest_topics": {
-            "Memory": 10,
+            "Memory": 12,
             "General": 6,
-            "Social influence": 12,
+            "Social influence": 15,
             "Issues and debates": 5,
-            "Biopsychology": 3,
-            "Issues and Debates": 1,
-            "Attachment": 5,
-            "Psychopathology": 1
+            "Biopsychology": 4,
+            "Issues and Debates": 3,
+            "Attachment": 7,
+            "Psychopathology": 3,
+            "Approaches": 1
         },
-        "questions_completed": 3,
-        "completed_topics": [],
+        "questions_completed": 6,
         "quiz_percentages": [
-            0
-        ],
-        "average_percentage_per_quiz": null,
-        "quiz_percnegages": [
             0,
-            0
+            33.33,
+            16.67,
+            66.67
         ]
     }
 ]
